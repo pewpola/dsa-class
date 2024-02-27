@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println(seno(30, 1));
+        int[] v = new int[]{1, 2, 3, 4, 5};
+        System.out.println(somaBinaria(v));
     }
 
     public static int somaBinaria(int[] v) {
