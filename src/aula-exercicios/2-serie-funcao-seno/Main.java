@@ -34,12 +34,5 @@ public class Main {
         t = t * (x * x) / (b * (b-1)) * (- 1);
         return t + seno(x, n - 1, b + 2, t);
     }
-    
-    public static int fatorial(int n) {
-        if (n == 0) {
-            return 1;
-        }
-        return n * fatorial(n - 1);
-    }
 }
 
