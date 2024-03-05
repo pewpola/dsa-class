@@ -1,6 +1,7 @@
 package MontandoArrayList.Entidades;
 
 import MontandoArrayList.Exceptions.EmptyListException;
+import MontandoArrayList.Exceptions.FullListException;
 
 public class StaticList implements List {
     private int size;
@@ -13,7 +14,6 @@ public class StaticList implements List {
 
     @Override
     public void add(int value) {
-        
     }
 
     @Override
@@ -23,8 +23,13 @@ public class StaticList implements List {
 
     @Override
     public void insert(int value) {
-        // TODO Auto-generated method stub
-        
+        if (isFull()) {
+            throw new FullListException("Static List is Full!");
+        }
+
+        for (int i = size; i > 0; ) {
+            staticList[i] = staticList[i - 1];
+        }
     }
 
     @Override
