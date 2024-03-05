@@ -48,6 +48,11 @@ public class StaticList implements List {
 
     @Override
     public void insert(int index, int value) throws IndexOutOfBoundsException {
+        if (isFull()) {
+            throw new FullListException("Static List is Full");
+        }
+
+        checkIndex(index);
     }
 
     @Override
