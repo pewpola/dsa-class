@@ -58,11 +58,7 @@ public class StaticList implements List {
 
     @Override
     public boolean isFull() {
-        if (size == MAX_SIZE) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == MAX_SIZE;
     }
 
     @Override
