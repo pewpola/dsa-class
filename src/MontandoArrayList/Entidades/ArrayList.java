@@ -19,7 +19,7 @@ public class ArrayList extends StaticList {
     @Override
     public void add(int value) {
         if (size == staticList.length) {
-
+            recreateStaticList();
         }
 
         staticList[size] = value;
