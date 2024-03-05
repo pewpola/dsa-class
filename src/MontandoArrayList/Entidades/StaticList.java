@@ -91,8 +91,10 @@ public class StaticList implements List {
 
     @Override
     public int removeLast() throws EmptyListException {
-        // TODO Auto-generated method stub
-        return 0;
+        if (isEmpty()) {
+            throw new EmptyListException("Static List is Empty");
+        }
+        return staticList[--size];
     }
 
     @Override
