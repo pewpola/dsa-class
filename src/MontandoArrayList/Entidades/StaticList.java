@@ -21,6 +21,12 @@ public class StaticList implements List {
         size++;
     }
 
+    private void checkIndex(int index) {
+        if (index < 0 || index >= MAX_SIZE) {
+            throw new IndexOutOfBoundsException("Index " + index + " is not valid!");
+        }
+    }
+
     @Override
     public int get(int index) throws IndexOutOfBoundsException {
         return 0;
@@ -35,12 +41,13 @@ public class StaticList implements List {
         for (int i = size; i > 0; i--) {
             staticList[i] = staticList[i - 1];
         }
+
+        staticList[0] = value;
+        size++;
     }
 
     @Override
     public void insert(int index, int value) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
