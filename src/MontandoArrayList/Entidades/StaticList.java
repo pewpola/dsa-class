@@ -53,6 +53,17 @@ public class StaticList implements List {
         }
 
         checkIndex(index);
+
+        if (index >= size) {
+            add(value);
+        } else {
+            for (int i = size; i > index; i--) {
+                staticList[i] = staticList[i - 1];
+            }
+
+            staticList[index] = value;
+            size++;
+        }
     }
 
     @Override
