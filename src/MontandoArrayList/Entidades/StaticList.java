@@ -4,8 +4,8 @@ import MontandoArrayList.Exceptions.EmptyListException;
 import MontandoArrayList.Exceptions.FullListException;
 
 public class StaticList implements List {
-    private int size;
-    private int[] staticList;
+    public int size;
+    public int[] staticList;
     private final int MAX_SIZE = 5;
 
     public StaticList() {
