@@ -14,6 +14,11 @@ public class StaticList implements List {
 
     @Override
     public void add(int value) {
+        if (isFull()) {
+            throw new FullListException("Static List is Full!");
+        }
+        staticList[size] = value;
+        size++;
     }
 
     @Override
