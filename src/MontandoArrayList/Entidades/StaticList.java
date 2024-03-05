@@ -21,8 +21,8 @@ public class StaticList implements List {
         size++;
     }
 
-    private void checkIndex(int index) {
-        if (index < 0 || index >= MAX_SIZE) {
+    private void checkIndex(int index, int referenceIndex) {
+        if (index < 0 || index >= referenceIndex) {
             throw new IndexOutOfBoundsException("Index " + index + " is not valid!");
         }
     }
@@ -52,7 +52,7 @@ public class StaticList implements List {
             throw new FullListException("Static List is Full");
         }
 
-        checkIndex(index);
+        checkIndex(index, MAX_SIZE);
 
         if (index >= size) {
             add(value);
@@ -78,7 +78,9 @@ public class StaticList implements List {
 
     @Override
     public int removeByIndex(int index) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
+        if (isEmpty()) {
+            throw new EmptyListException("Static List is Empty");
+        }
         return 0;
     }
 
@@ -94,7 +96,7 @@ public class StaticList implements List {
             staticList[i] = staticList[i + 1];
         }
         size--;
-        
+
         return value;
     }
 
@@ -109,7 +111,7 @@ public class StaticList implements List {
     @Override
     public void set(int index, int value) throws IndexOutOfBoundsException {
         // TODO Auto-generated method stub
-        
+
     }
 
     public String toString() {
@@ -125,5 +127,5 @@ public class StaticList implements List {
 
         return data + "]";
     }
-    
+
 }
