@@ -84,8 +84,18 @@ public class StaticList implements List {
 
     @Override
     public int removeFirst() throws EmptyListException {
-        // TODO Auto-generated method stub
-        return 0;
+        if (isEmpty()) {
+            throw new EmptyListException("Static List is Empty");
+        }
+
+        int value = staticList[0];
+
+        for (int i = 0; i < size - 1; i++) {
+            staticList[i] = staticList[i + 1];
+        }
+        size--;
+        
+        return value;
     }
 
     @Override
