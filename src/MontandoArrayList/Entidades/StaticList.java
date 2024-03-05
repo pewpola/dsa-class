@@ -81,7 +81,15 @@ public class StaticList implements List {
         if (isEmpty()) {
             throw new EmptyListException("Static List is Empty");
         }
-        return 0;
+
+        checkIndex(index, size);
+
+        int value = staticList[index];
+        for (int i = index; i < size - 1; i++) {
+            staticList[i] = staticList[i + 1];
+        }
+        
+        return value;
     }
 
     @Override
