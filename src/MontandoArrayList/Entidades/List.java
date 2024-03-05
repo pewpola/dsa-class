@@ -8,6 +8,7 @@ public interface List {
     int removeLast() throws EmptyListException ;
     int removeFirst() throws EmptyListException;
     int removeByIndex(int index) throws IndexOutOfBoundsException,EmptyListException;
+    boolean isFull();
     boolean isEmpty();
     int get(int index) throws IndexOutOfBoundsException;
     void set(int index, int value) throws IndexOutOfBoundsException;

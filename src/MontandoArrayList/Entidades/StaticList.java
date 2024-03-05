@@ -27,7 +27,7 @@ public class StaticList implements List {
             throw new FullListException("Static List is Full!");
         }
 
-        for (int i = size; i > 0; ) {
+        for (int i = size; i > 0; i--) {
             staticList[i] = staticList[i - 1];
         }
     }
@@ -44,11 +44,13 @@ public class StaticList implements List {
         return false;
     }
 
-    
     @Override
     public boolean isFull() {
-        // TODO Auto-generated method stub
-        return false;
+        if (size == MAX_SIZE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
