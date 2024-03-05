@@ -29,7 +29,8 @@ public class StaticList implements List {
 
     @Override
     public int get(int index) throws IndexOutOfBoundsException {
-        return 0;
+        checkIndex(index, size);
+        return index;
     }
 
     @Override
@@ -88,7 +89,7 @@ public class StaticList implements List {
         for (int i = index; i < size - 1; i++) {
             staticList[i] = staticList[i + 1];
         }
-        
+
         return value;
     }
 
@@ -118,8 +119,8 @@ public class StaticList implements List {
 
     @Override
     public void set(int index, int value) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
-
+        checkIndex(index, size);
+        staticList[index] = value;
     }
 
     public String toString() {
