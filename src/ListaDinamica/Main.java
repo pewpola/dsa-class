@@ -2,7 +2,7 @@ package ListaDinamica;
 
 public class Main {
     public static void main(String[] args) {
-        
+        Node<String> myNode = new Node<>("");
     }
 }
 
@@ -14,7 +14,6 @@ class EmptyListException extends RuntimeException {
 }
 
 // TAD - List
-
 interface List<E> {
     int size();
     void add(E value);
@@ -36,6 +35,87 @@ class Node<E> {
     public Node(E value) {
         this.value = value;
     }
+}
+
+class LinkedList<E> implements List<E> {
+    
+    class Node {
+        E value;
+        Node next;
+    
+        public Node(E value) {
+            this.value = value;
+        }
+    }
+
+    private int size;
+    
+    @Override
+    public void add(E value) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public E get(int index) throws IndexOutOfBoundsException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void insert(E value) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void insert(int index, E value) throws IndexOutOfBoundsException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean isEmpty() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isFull() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public E removeFirst() throws EmptyListException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public E removeLast() throws EmptyListException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void set(int index, E value) throws IndexOutOfBoundsException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public int size() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
 }
 
 // LL - LinkedList
