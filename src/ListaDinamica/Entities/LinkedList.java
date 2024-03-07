@@ -8,7 +8,7 @@ public class LinkedList<E> implements List<E> {
     private class Node {
         E value;
         Node next;
-    
+
         public Node(E value) {
             this.value = value;
         }
@@ -18,7 +18,8 @@ public class LinkedList<E> implements List<E> {
     private Node head;
     private Node tail;
 
-    public LinkedList() {}
+    public LinkedList() {
+    }
 
     public LinkedList(E value) {
         add(value);
@@ -27,13 +28,13 @@ public class LinkedList<E> implements List<E> {
     @Override
     public void add(E value) {
         Node newNode = new Node(value);
-        if(isEmpty()) {
-            head = newNode;            
+        if (isEmpty()) {
+            head = newNode;
         } else {
-            tail.next = newNode;           
+            tail.next = newNode;
         }
         tail = newNode;
-        size++;        
+        size++;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class LinkedList<E> implements List<E> {
     @Override
     public void insert(E value) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -80,7 +81,7 @@ public class LinkedList<E> implements List<E> {
     @Override
     public void set(int index, E value) throws IndexOutOfBoundsException {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -95,10 +96,10 @@ public class LinkedList<E> implements List<E> {
 
         Node auxNode = head;
 
-        while(auxNode != null){
-            if(auxNode.next == null){
+        while (auxNode != null) {
+            if (auxNode.next == null) {
                 linkedList += auxNode.value;
-                
+
             } else {
                 linkedList += auxNode.value + ", ";
             }
