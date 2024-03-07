@@ -2,7 +2,8 @@ package ListaDinamica;
 
 public class Main {
     public static void main(String[] args) {
-        Node<String> myNode = new Node<>("");
+        LinkedList<Integer> list = new LinkedList<>(3);
+        System.out.println(list);
     }
 }
 
@@ -16,27 +17,18 @@ class EmptyListException extends RuntimeException {
 // TAD - List
 interface List<E> {
     int size();
-
     void add(E value);
-
     void insert(E value);
-
     void insert(int index, E value) throws IndexOutOfBoundsException;
-
     E removeLast() throws EmptyListException;
-
     E removeFirst() throws EmptyListException;
-
     E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException;
-
-    boolean isFull();
-
     boolean isEmpty();
-
     E get(int index) throws IndexOutOfBoundsException;
-
     void set(int index, E value) throws IndexOutOfBoundsException;
 }
+
+/*
 
 class Node<E> {
     E value;
@@ -46,6 +38,8 @@ class Node<E> {
         this.value = value;
     }
 }
+
+*/
 
 class LinkedList<E> implements List<E> {
 
@@ -106,14 +100,7 @@ class LinkedList<E> implements List<E> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean isFull() {
-        // TODO Auto-generated method stub
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -160,6 +147,7 @@ class LinkedList<E> implements List<E> {
             }
             auxNode = auxNode.next;
         }
+
         return linkedList + "]";
     }
 }
