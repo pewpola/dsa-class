@@ -3,7 +3,7 @@ package ListaDinamica.Entities;
 import ListaDinamica.Interfaces.List;
 import ListaDinamica.Exceptions.EmptyListException;
 
-class LinkedList<E> implements List<E> {
+public class LinkedList<E> implements List<E> {
 
     private class Node {
         E value;
