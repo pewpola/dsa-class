@@ -16,15 +16,25 @@ class EmptyListException extends RuntimeException {
 // TAD - List
 interface List<E> {
     int size();
+
     void add(E value);
+
     void insert(E value);
+
     void insert(int index, E value) throws IndexOutOfBoundsException;
-    E removeLast() throws EmptyListException ;
+
+    E removeLast() throws EmptyListException;
+
     E removeFirst() throws EmptyListException;
-    E removeByIndex(int index) throws IndexOutOfBoundsException,EmptyListException;
+
+    E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException;
+
     boolean isFull();
+
     boolean isEmpty();
+
     E get(int index) throws IndexOutOfBoundsException;
+
     void set(int index, E value) throws IndexOutOfBoundsException;
 }
 
@@ -38,22 +48,42 @@ class Node<E> {
 }
 
 class LinkedList<E> implements List<E> {
-    
+
     class Node {
         E value;
         Node next;
-    
+
         public Node(E value) {
             this.value = value;
         }
     }
 
+    public LinkedList() {}
+
+    public LinkedList(E value) {
+        Node newNode = new Node(value);
+
+        head = newNode;
+        tail = newNode;
+        size = 1;
+    }
+
     private int size;
-    
+    private Node head;
+    private Node tail;
+
     @Override
     public void add(E value) {
-        // TODO Auto-generated method stub
+        Node newNode = new Node(value);
         
+        if (isEmpty()) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+        size++;
     }
 
     @Override
@@ -65,13 +95,13 @@ class LinkedList<E> implements List<E> {
     @Override
     public void insert(E value) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void insert(int index, E value) throws IndexOutOfBoundsException {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -107,7 +137,7 @@ class LinkedList<E> implements List<E> {
     @Override
     public void set(int index, E value) throws IndexOutOfBoundsException {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -115,7 +145,20 @@ class LinkedList<E> implements List<E> {
         // TODO Auto-generated method stub
         return 0;
     }
-    
-}
 
-// LL - LinkedList
+    @Override
+    public String toString() {
+        String linkedList = "[";
+
+        Node auxNode = head;
+
+        while (auxNode != null) {
+            if (auxNode != null) {
+                linkedList += auxNode.value;
+            } else {
+                linkedList += auxNode.value + ", ";
+            }
+        }
+        return linkedList + "]";
+    }
+}
