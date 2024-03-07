@@ -153,11 +153,12 @@ class LinkedList<E> implements List<E> {
         Node auxNode = head;
 
         while (auxNode != null) {
-            if (auxNode != null) {
+            if (auxNode.next == null) {
                 linkedList += auxNode.value;
             } else {
                 linkedList += auxNode.value + ", ";
             }
+            auxNode = auxNode.next;
         }
         return linkedList + "]";
     }
