@@ -29,5 +29,13 @@ interface List<E> {
     void set(int index, E value) throws IndexOutOfBoundsException;
 }
 
+class Node<E> {
+    E value;
+    Node<E> next;
+
+    public Node(E value) {
+        this.value = value;
+    }
+}
 
 // LL - LinkedList
