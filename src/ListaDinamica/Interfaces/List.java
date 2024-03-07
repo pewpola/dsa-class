@@ -1,5 +1,7 @@
 package ListaDinamica.Interfaces;
 
+import ListaDinamica.Exceptions.EmptyListException;
+
 public interface List<E> {
     int size();
     void add(E value);
