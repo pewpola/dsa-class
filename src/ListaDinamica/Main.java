@@ -2,14 +2,14 @@ package ListaDinamica;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>(3);
+        LinkedList<Integer> list = new LinkedList<>(2);
         System.out.println(list);
     }
 }
 
-// Exceptions
+//Exceptions
 class EmptyListException extends RuntimeException {
-    public EmptyListException(String errorMessage) {
+    public EmptyListException(String errorMessage){
         super(errorMessage);
     }
 }
@@ -20,64 +20,45 @@ interface List<E> {
     void add(E value);
     void insert(E value);
     void insert(int index, E value) throws IndexOutOfBoundsException;
-    E removeLast() throws EmptyListException;
+    E removeLast() throws EmptyListException ;
     E removeFirst() throws EmptyListException;
-    E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException;
+    E removeByIndex(int index) throws IndexOutOfBoundsException,EmptyListException;
     boolean isEmpty();
     E get(int index) throws IndexOutOfBoundsException;
-    void set(int index, E value) throws IndexOutOfBoundsException;
+    void set(int index, E value) throws IndexOutOfBoundsException;    
 }
-
-/*
-
-class Node<E> {
-    E value;
-    Node<E> next;
-
-    public Node(E value) {
-        this.value = value;
-    }
-}
-
-*/
 
 class LinkedList<E> implements List<E> {
 
-    class Node {
+    private class Node {
         E value;
         Node next;
-
+    
         public Node(E value) {
             this.value = value;
         }
-    }
-
-    public LinkedList() {}
-
-    public LinkedList(E value) {
-        Node newNode = new Node(value);
-
-        head = newNode;
-        tail = newNode;
-        size = 1;
     }
 
     private int size;
     private Node head;
     private Node tail;
 
+    public LinkedList() {}
+
+    public LinkedList(E value) {
+        add(value);
+    }
+
     @Override
     public void add(E value) {
         Node newNode = new Node(value);
-        
-        if (isEmpty()) {
-            head = newNode;
-            tail = newNode;
+        if(isEmpty()) {
+            head = newNode;            
         } else {
-            tail.next = newNode;
-            tail = newNode;
+            tail.next = newNode;           
         }
-        size++;
+        tail = newNode;
+        size++;        
     }
 
     @Override
@@ -89,7 +70,7 @@ class LinkedList<E> implements List<E> {
     @Override
     public void insert(E value) {
         // TODO Auto-generated method stub
-
+        
     }
 
     @Override
@@ -124,7 +105,7 @@ class LinkedList<E> implements List<E> {
     @Override
     public void set(int index, E value) throws IndexOutOfBoundsException {
         // TODO Auto-generated method stub
-
+        
     }
 
     @Override
@@ -139,9 +120,10 @@ class LinkedList<E> implements List<E> {
 
         Node auxNode = head;
 
-        while (auxNode != null) {
-            if (auxNode.next == null) {
+        while(auxNode != null){
+            if(auxNode.next == null){
                 linkedList += auxNode.value;
+                
             } else {
                 linkedList += auxNode.value + ", ";
             }
