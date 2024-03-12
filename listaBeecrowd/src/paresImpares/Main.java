@@ -21,8 +21,8 @@ public class Main {
             }
         }
 
-        evenList.ordenaCrescentemente();
-        oddList.ordenaDecrescentemente();
+        QuickSort.quickSort(evenList, 0, evenList.size - 1);
+        QuickSort.ordenaListaDecrescente(oddList, 0, oddList.size - 1);
 
         for (int i = 0; i < evenList.size; i++) {
             System.out.println(evenList.get(i));
@@ -38,10 +38,6 @@ public class Main {
 
 interface List {
     void add(int value);
-
-    void ordenaCrescentemente();
-
-    void ordenaDecrescentemente();
 
     void insert(int value);
 
@@ -128,32 +124,6 @@ class NumbersList implements List {
     }
 
     @Override
-    public void ordenaCrescentemente() {
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = 0; j < size - i - 1; j++) {
-                if (numbersList[j] > numbersList[j + 1]) {
-                    int aux = numbersList[j];
-                    numbersList[j] = numbersList[j + 1];
-                    numbersList[j + 1] = aux;
-                }
-            }
-        }
-    }
-
-    @Override
-    public void ordenaDecrescentemente() {
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = 0; j < size - i - 1; j++) {
-                if (numbersList[j] < numbersList[j + 1]) {
-                    int aux = numbersList[j];
-                    numbersList[j] = numbersList[j + 1];
-                    numbersList[j + 1] = aux;
-                }
-            }
-        }
-    }
-
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -223,7 +193,65 @@ class NumbersList implements List {
 
         return data + "]";
     }
+}
 
+class QuickSort {
+    private static int partition(NumbersList lista, int comeco, int fim) {
+        int pivot = lista.get(fim);
+        int i = comeco - 1;
+        for (int j = comeco; j <= fim - 1; j++) {
+            if (lista.get(j) < pivot) {
+                i++;
+                int auxiliar = lista.get(i);
+                lista.set(i, lista.get(j));
+                lista.set(j, auxiliar);
+            }
+        }
+        i++;
+        int auxiliar = lista.get(i);
+        lista.set(i, lista.get(fim));
+        lista.set(fim, auxiliar);
+        return i;
+    }
+
+    public static void quickSort(NumbersList lista, int comeco, int fim) {
+        if (fim <= comeco) {
+            return;
+
+        }
+        int pivot = partition(lista, comeco, fim);
+        quickSort(lista, pivot + 1, fim);
+        quickSort(lista, comeco, pivot - 1);
+
+    }
+
+    private static int partitionDecrescente(NumbersList lista, int comeco, int fim) {
+        int pivot = lista.get(fim);
+        int i = comeco - 1;
+        for (int j = comeco; j <= fim - 1; j++) {
+            if (lista.get(j) > pivot) {
+                i++;
+                int auxiliar = lista.get(i);
+                lista.set(i, lista.get(j));
+                lista.set(j, auxiliar);
+            }
+        }
+        i++;
+        int auxiliar = lista.get(i);
+        lista.set(i, lista.get(fim));
+        lista.set(fim, auxiliar);
+        return i;
+    }
+
+    public static void ordenaListaDecrescente(NumbersList lista, int comeco, int fim) {
+        if (fim <= comeco) {
+            return;
+
+        }
+        int pivot = partitionDecrescente(lista, comeco, fim);
+        ordenaListaDecrescente(lista, pivot + 1, fim);
+        ordenaListaDecrescente(lista, comeco, pivot - 1);
+    }
 }
 
 class EmptyListException extends RuntimeException {
