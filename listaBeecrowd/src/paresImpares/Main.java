@@ -1,4 +1,4 @@
-package paresEImpares;
+package paresImpares;
 
 import java.util.Scanner;
 
