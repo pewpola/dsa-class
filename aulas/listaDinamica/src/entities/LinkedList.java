@@ -45,8 +45,17 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public void insert(E value) {
-        // TODO Auto-generated method stub
+        Node newNode = new Node(value);
 
+        if (isEmpty()) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+        
+        size++;
     }
 
     @Override
