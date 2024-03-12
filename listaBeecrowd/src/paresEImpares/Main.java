@@ -20,7 +20,7 @@ public class Main {
 
         for (int i = 0; i < list.size; i++) {
             int number = list.get(i);
-            if (i % 2 == 0) {
+            if (number % 2 == 0) {
                 evenList.add(number);
             } else {
                 oddList.add(number);
@@ -69,12 +69,13 @@ interface List {
 }
 
 class NumbersList implements List {
-    int size;
+    public int size;
     public int[] numbersList;
     public int MAX_SIZE;
 
     public NumbersList(int MAX_SIZE) {
         numbersList = new int[MAX_SIZE];
+        this.MAX_SIZE = MAX_SIZE;
     }
 
     @Override
@@ -95,7 +96,7 @@ class NumbersList implements List {
     @Override
     public int get(int index) throws IndexOutOfBoundsException {
         checkIndex(index, size);
-        return index;
+        return numbersList[index];
     }
 
     @Override
