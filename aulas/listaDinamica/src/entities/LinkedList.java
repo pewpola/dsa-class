@@ -92,20 +92,17 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public String toString() {
-        String linkedList = "[";
+        StringBuilder sb = new StringBuilder("[");
 
         Node auxNode = head;
 
         while (auxNode != null) {
+            sb.append(auxNode.value);
             if (auxNode.next == null) {
-                linkedList += auxNode.value;
-
-            } else {
-                linkedList += auxNode.value + ", ";
+                sb.append(", ");
             }
             auxNode = auxNode.next;
         }
-
-        return linkedList + "]";
+        return sb.append("]").toString();
     }
 }
