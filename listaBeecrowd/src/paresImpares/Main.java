@@ -9,17 +9,11 @@ public class Main {
 
         n = sc.nextInt();
 
-        NumbersList list = new NumbersList(n);
         NumbersList evenList = new NumbersList(n);
         NumbersList oddList = new NumbersList(n);
 
         for (int i = 0; i < n; i++) {
-            int numbers = sc.nextInt();
-            list.add(numbers);
-        }
-
-        for (int i = 0; i < list.size; i++) {
-            int number = list.get(i);
+            int number = sc.nextInt();
             if (number % 2 == 0) {
                 evenList.add(number);
             } else {
