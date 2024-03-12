@@ -54,14 +54,33 @@ public class LinkedList<E> implements List<E> {
             newNode.next = head;
             head = newNode;
         }
-        
+
         size++;
+    }
+
+    private Node getNode(int index) {
+        Node auxNode = head;
+
+        for (int i = 0; i < index; i++) {
+            auxNode = auxNode.next;
+        }
+
+        return auxNode;
     }
 
     @Override
     public void insert(int index, E value) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
-
+        if (index <= 0) {
+            insert(value);
+        } else if (index >= size) {
+            add(value);
+        } else {
+            Node newNode = new Node(value);
+            Node auxNode = getNode(index - 1);
+            newNode.next = auxNode.next;
+            auxNode.next = newNode;
+            size++;
+        }
     }
 
     @Override
