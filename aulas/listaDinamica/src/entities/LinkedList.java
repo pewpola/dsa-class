@@ -96,8 +96,21 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E removeFirst() throws EmptyListException {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyListException("Linked List is Empty");
+        }
+
+        Node auxNode = head;
+        if (size == 1) {
+            head = null;
+            tail = null;
+        } else {
+            head = head.next;
+            auxNode.next = null;
+        }
+        size--;
+
+        return auxNode.value;
     }
 
     @Override
