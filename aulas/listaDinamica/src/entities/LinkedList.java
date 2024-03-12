@@ -115,8 +115,22 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E removeLast() throws EmptyListException {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyListException("Linked List is Empty");
+        }
+
+        E value = tail.value;
+
+        if (size == 1) {
+            head = null;
+            tail = null;
+        } else {
+            Node auxNode = getNode(size - 2);
+            tail = auxNode;
+            tail.next = null;
+        }
+        size--;
+        return value;
     }
 
     @Override
