@@ -1,8 +1,32 @@
 package colecaoDePomekons;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        
+        Scanner sc = new Scanner(System.in);
+
+        int n;
+
+        n = sc.nextInt();
+    }
+}
+
+class ListaPomekon {
+    public StaticList<String> pomekons;
+
+    public ListaPomekon() {
+        pomekons = new StaticList<String>(151);
+    }
+
+    public void capturePomekon(String pomekon) {
+        if (!pomekons.contains(pomekon)) {
+            capturePomekon(pomekon);
+        }
+    }
+
+    public int remainingPomekons() {
+        return 151 - pomekons.size;
     }
 }
 
@@ -26,15 +50,27 @@ interface List<E> {
     E get(int index) throws IndexOutOfBoundsException;
 
     void set(int index, E value) throws IndexOutOfBoundsException;
+
+    boolean contains(E value);
 }
 
-class NumbersList<E> implements List<E> {
-    private int size;
-    private Object[] numbersList;
+class StaticList<E> implements List<E> {
+    public int size;
+    private Object[] list;
     private final int MAX_SIZE;
 
-    public NumbersList(int MAX_SIZE) {
-        numbersList = new Object[MAX_SIZE];
+    @Override
+    public boolean contains(E value) {
+        for (int i = 0; i < size; i++) {
+            if (list[i].equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public StaticList(int MAX_SIZE) {
+        list = new Object[MAX_SIZE];
         this.MAX_SIZE = MAX_SIZE;
     }
 
@@ -43,7 +79,7 @@ class NumbersList<E> implements List<E> {
         if (isFull()) {
             throw new FullListException("Static List is Full!");
         }
-        numbersList[size] = value;
+        list[size] = value;
         size++;
     }
 
@@ -57,7 +93,7 @@ class NumbersList<E> implements List<E> {
     public E get(int index) throws IndexOutOfBoundsException {
         checkIndex(index, size);
         @SuppressWarnings("unchecked")
-        E result = (E) numbersList[index];
+        E result = (E) list[index];
         return result;
     }
 
@@ -68,10 +104,10 @@ class NumbersList<E> implements List<E> {
         }
 
         for (int i = size; i > 0; i--) {
-            numbersList[i] = numbersList[i - 1];
+            list[i] = list[i - 1];
         }
 
-        numbersList[0] = value;
+        list[0] = value;
         size++;
     }
 
@@ -87,10 +123,10 @@ class NumbersList<E> implements List<E> {
             add(value);
         } else {
             for (int i = size; i > index; i--) {
-                numbersList[i] = numbersList[i - 1];
+                list[i] = list[i - 1];
             }
 
-            numbersList[index] = value;
+            list[index] = value;
             size++;
         }
     }
@@ -114,9 +150,9 @@ class NumbersList<E> implements List<E> {
         checkIndex(index, size);
 
         @SuppressWarnings("unchecked")
-        E value = (E) numbersList[index];
+        E value = (E) list[index];
         for (int i = index; i < size - 1; i++) {
-            numbersList[i] = numbersList[i + 1];
+            list[i] = list[i + 1];
         }
 
         size--;
@@ -130,10 +166,10 @@ class NumbersList<E> implements List<E> {
         }
 
         @SuppressWarnings("unchecked")
-        E value = (E) numbersList[0];
+        E value = (E) list[0];
 
         for (int i = 0; i < size - 1; i++) {
-            numbersList[i] = numbersList[i + 1];
+            list[i] = list[i + 1];
         }
         size--;
 
@@ -146,14 +182,14 @@ class NumbersList<E> implements List<E> {
             throw new EmptyListException("Static List is Empty");
         }
         @SuppressWarnings("unchecked")
-        E value = (E) numbersList[--size];
+        E value = (E) list[--size];
         return value;
     }
 
     @Override
     public void set(int index, E value) throws IndexOutOfBoundsException {
         checkIndex(index, size);
-        numbersList[index] = value;
+        list[index] = value;
     }
 
     @Override
@@ -161,16 +197,15 @@ class NumbersList<E> implements List<E> {
         StringBuilder data = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
             if (i == size - 1) {
-                data.append(numbersList[i]);
+                data.append(list[i]);
             } else {
-                data.append(numbersList[i]).append(", ");
+                data.append(list[i]).append(", ");
             }
         }
         data.append("]");
         return data.toString();
     }
 }
-
 
 class EmptyListException extends RuntimeException {
     public EmptyListException(String errorMessage) {
