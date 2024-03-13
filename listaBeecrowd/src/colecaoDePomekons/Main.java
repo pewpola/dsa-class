@@ -19,7 +19,7 @@ public class Main {
 
         sc.close();
 
-        System.out.println("Falta(m) " + list.remainingPomekons() + " pomekons(s)");
+        System.out.println("Falta(m) " + list.remainingPomekons() + " pomekon(s).");
     }
 }
 
