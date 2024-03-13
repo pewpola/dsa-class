@@ -1,43 +1,45 @@
 package colecaoDePomekons;
 
 public class Main {
-    
+    public static void main(String[] args) {
+        
+    }
 }
 
-interface List {
-    void add(int value);
+interface List<E> {
+    void add(E value);
 
-    void insert(int value);
+    void insert(E value);
 
-    void insert(int index, int value) throws IndexOutOfBoundsException;
+    void insert(int index, E value) throws IndexOutOfBoundsException;
 
-    int removeLast() throws EmptyListException;
+    E removeLast() throws EmptyListException;
 
-    int removeFirst() throws EmptyListException;
+    E removeFirst() throws EmptyListException;
 
-    int removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException;
+    E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException;
 
     boolean isFull();
 
     boolean isEmpty();
 
-    int get(int index) throws IndexOutOfBoundsException;
+    E get(int index) throws IndexOutOfBoundsException;
 
-    void set(int index, int value) throws IndexOutOfBoundsException;
+    void set(int index, E value) throws IndexOutOfBoundsException;
 }
 
-class NumbersList implements List {
-    public int size;
-    public int[] numbersList;
-    public int MAX_SIZE;
+class NumbersList<E> implements List<E> {
+    private int size;
+    private Object[] numbersList;
+    private final int MAX_SIZE;
 
     public NumbersList(int MAX_SIZE) {
-        numbersList = new int[MAX_SIZE];
+        numbersList = new Object[MAX_SIZE];
         this.MAX_SIZE = MAX_SIZE;
     }
 
     @Override
-    public void add(int value) {
+    public void add(E value) {
         if (isFull()) {
             throw new FullListException("Static List is Full!");
         }
@@ -52,13 +54,15 @@ class NumbersList implements List {
     }
 
     @Override
-    public int get(int index) throws IndexOutOfBoundsException {
+    public E get(int index) throws IndexOutOfBoundsException {
         checkIndex(index, size);
-        return numbersList[index];
+        @SuppressWarnings("unchecked")
+        E result = (E) numbersList[index];
+        return result;
     }
 
     @Override
-    public void insert(int value) {
+    public void insert(E value) {
         if (isFull()) {
             throw new FullListException("Static List is Full!");
         }
@@ -72,7 +76,7 @@ class NumbersList implements List {
     }
 
     @Override
-    public void insert(int index, int value) throws IndexOutOfBoundsException {
+    public void insert(int index, E value) throws IndexOutOfBoundsException {
         if (isFull()) {
             throw new FullListException("Static List is Full");
         }
@@ -102,28 +106,31 @@ class NumbersList implements List {
     }
 
     @Override
-    public int removeByIndex(int index) throws IndexOutOfBoundsException {
+    public E removeByIndex(int index) throws IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new EmptyListException("Static List is Empty");
         }
 
         checkIndex(index, size);
 
-        int value = numbersList[index];
+        @SuppressWarnings("unchecked")
+        E value = (E) numbersList[index];
         for (int i = index; i < size - 1; i++) {
             numbersList[i] = numbersList[i + 1];
         }
 
+        size--;
         return value;
     }
 
     @Override
-    public int removeFirst() throws EmptyListException {
+    public E removeFirst() throws EmptyListException {
         if (isEmpty()) {
             throw new EmptyListException("Static List is Empty");
         }
 
-        int value = numbersList[0];
+        @SuppressWarnings("unchecked")
+        E value = (E) numbersList[0];
 
         for (int i = 0; i < size - 1; i++) {
             numbersList[i] = numbersList[i + 1];
@@ -134,32 +141,33 @@ class NumbersList implements List {
     }
 
     @Override
-    public int removeLast() throws EmptyListException {
+    public E removeLast() throws EmptyListException {
         if (isEmpty()) {
             throw new EmptyListException("Static List is Empty");
         }
-        return numbersList[--size];
+        @SuppressWarnings("unchecked")
+        E value = (E) numbersList[--size];
+        return value;
     }
 
     @Override
-    public void set(int index, int value) throws IndexOutOfBoundsException {
+    public void set(int index, E value) throws IndexOutOfBoundsException {
         checkIndex(index, size);
         numbersList[index] = value;
     }
 
     @Override
     public String toString() {
-        String data = "[";
-
+        StringBuilder data = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
             if (i == size - 1) {
-                data += numbersList[i];
+                data.append(numbersList[i]);
             } else {
-                data += numbersList[i] + ", ";
+                data.append(numbersList[i]).append(", ");
             }
         }
-
-        return data + "]";
+        data.append("]");
+        return data.toString();
     }
 }
 
