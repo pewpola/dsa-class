@@ -9,19 +9,30 @@ public class Main {
         int n;
 
         n = sc.nextInt();
+
+        PomekonList list = new PomekonList();
+
+        for (int i = 0; i < n; i++) {
+            String pomekon = sc.next();
+            list.capturePomekon(pomekon);
+        }
+
+        sc.close();
+
+        System.out.println("Falta(m) " + list.remainingPomekons() + " pomekons(s)");
     }
 }
 
-class ListaPomekon {
+class PomekonList {
     public StaticList<String> pomekons;
 
-    public ListaPomekon() {
+    public PomekonList() {
         pomekons = new StaticList<String>(151);
     }
 
     public void capturePomekon(String pomekon) {
         if (!pomekons.contains(pomekon)) {
-            capturePomekon(pomekon);
+            pomekons.add(pomekon);
         }
     }
 
