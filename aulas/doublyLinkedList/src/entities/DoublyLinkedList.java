@@ -8,6 +8,7 @@ public class DoublyLinkedList<E> implements List<E> {
     private class Node {
         E value;
         Node next;
+        Node previous;
 
         public Node(E value) {
             this.value = value;
@@ -32,7 +33,9 @@ public class DoublyLinkedList<E> implements List<E> {
             head = newNode;
         } else {
             tail.next = newNode;
+            newNode.previous = tail;
         }
+        System.out.println(newNode.previous.value);
         tail = newNode;
         size++;
     }
