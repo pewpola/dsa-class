@@ -44,9 +44,10 @@ public class DoublyLinkedList<E> implements List<E> {
         if (isEmpty()) {
             throw new EmptyListException("Linked List is Empty");
         }
-        
+
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         return getNode(index).value;
@@ -56,9 +57,10 @@ public class DoublyLinkedList<E> implements List<E> {
         if (isEmpty()) {
             throw new EmptyListException("Linked List is Empty");
         }
-        
+
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         return getNodeInverse(index).value;
@@ -93,7 +95,7 @@ public class DoublyLinkedList<E> implements List<E> {
     private Node getNodeInverse(int index) {
         Node auxNode = tail;
 
-        for (int i = size - 1; i >= 0; i--) {
+        for (int i = size - 1; i > index; i--) {
             auxNode = auxNode.previous;
         }
 
@@ -127,7 +129,8 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         E value = null;
@@ -154,7 +157,7 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         Node auxNode = head;
-        
+
         if (size == 1) {
             head = null;
             tail = null;
@@ -192,9 +195,10 @@ public class DoublyLinkedList<E> implements List<E> {
         if (isEmpty()) {
             throw new EmptyListException("Linked List is Empty");
         }
-        
+
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         getNode(index).value = value;
@@ -206,12 +210,12 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @Override
-    public String toString() {        
+    public String toString() {
         StringBuilder sb = new StringBuilder("[");
         Node auxNode = head;
-        while(auxNode != null) {
+        while (auxNode != null) {
             sb.append(auxNode.value);
-            if(auxNode.next != null){
+            if (auxNode.next != null) {
                 sb.append(", ");
             }
             auxNode = auxNode.next;
