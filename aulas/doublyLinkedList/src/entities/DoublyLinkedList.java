@@ -35,7 +35,6 @@ public class DoublyLinkedList<E> implements List<E> {
             tail.next = newNode;
             newNode.previous = tail;
         }
-        System.out.println(newNode.previous.value);
         tail = newNode;
         size++;
     }
