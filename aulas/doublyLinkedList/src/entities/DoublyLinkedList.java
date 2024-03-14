@@ -222,4 +222,17 @@ public class DoublyLinkedList<E> implements List<E> {
         }
         return sb.append("]").toString();
     }
+
+    public String inverseList() {
+        StringBuilder sb = new StringBuilder("[");
+        Node auxNode = tail; // Começa do último nó
+        while (auxNode != null) {
+            sb.append(auxNode.value);
+            if (auxNode.previous != null) {
+                sb.append(", ");
+            }
+            auxNode = auxNode.previous;
+        }
+        return sb.append("]").toString();
+    }
 }
