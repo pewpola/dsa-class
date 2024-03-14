@@ -76,6 +76,16 @@ public class DoublyLinkedList<E> implements List<E> {
         return auxNode;
     }
 
+    private Node getNodeInverse(int index) {
+        Node auxNode = tail;
+
+        for (int i = index; i <= 0; i++) {
+            auxNode = auxNode.previous;
+        }
+
+        return auxNode;
+    }
+
     @Override
     public void insert(int index, E value) throws IndexOutOfBoundsException {
         if (index <= 0) {
