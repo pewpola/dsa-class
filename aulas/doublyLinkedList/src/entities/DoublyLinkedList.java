@@ -46,8 +46,7 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         return getNode(index).value;
@@ -59,8 +58,7 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         return getNodeInverse(index).value;
@@ -129,8 +127,7 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         E value = null;
@@ -197,8 +194,7 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         getNode(index).value = value;
@@ -225,7 +221,7 @@ public class DoublyLinkedList<E> implements List<E> {
 
     public String inverseList() {
         StringBuilder sb = new StringBuilder("[");
-        Node auxNode = tail; // Começa do último nó
+        Node auxNode = tail;
         while (auxNode != null) {
             sb.append(auxNode.value);
             if (auxNode.previous != null) {
