@@ -1,7 +1,5 @@
 package entities;
 
-import javax.print.attribute.standard.Sides;
-
 import exceptions.EmptyListException;
 import interfaces.List;
 
@@ -41,8 +39,15 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyListException("Linked List is Empty");
+        }
+        
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+        }
+
+        return getNode(index).value;
     }
 
     @Override
@@ -95,7 +100,8 @@ public class LinkedList<E> implements List<E> {
         if (isEmpty()) {
             throw new EmptyListException("Linked List is Empty");
         }
-        else if (index < 0 || index >= size) {
+
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
@@ -157,14 +163,21 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public void set(int index, E value) throws IndexOutOfBoundsException {
-        // TODO Auto-generated method stub
+        if (isEmpty()) {
+            throw new EmptyListException("Linked List is Empty");
+        }
+        
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+        }
+
+        getNode(index).value = value;
 
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return size;
     }
 
     @Override
