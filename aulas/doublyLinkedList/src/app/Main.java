@@ -7,6 +7,8 @@ public class Main {
         DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
         list.add(1);
         list.add(2);
+        list.insert(0);
+        System.out.println(list);
     }
     
 }
