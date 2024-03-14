@@ -61,10 +61,9 @@ public class DoublyLinkedList<E> implements List<E> {
             tail = newNode;
         } else {
             newNode.next = head;
+            head.previous = newNode;
             head = newNode;
         }
-
-        size++;
     }
 
     private Node getNode(int index) {
