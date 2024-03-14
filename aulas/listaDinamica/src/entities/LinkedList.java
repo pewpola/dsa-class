@@ -181,14 +181,12 @@ public class LinkedList<E> implements List<E> {
     }
 
     @Override
-    public String toString() {
+    public String toString() {        
         StringBuilder sb = new StringBuilder("[");
-
         Node auxNode = head;
-
-        while (auxNode != null) {
+        while(auxNode != null) {
             sb.append(auxNode.value);
-            if (auxNode.next == null) {
+            if(auxNode.next != null){
                 sb.append(", ");
             }
             auxNode = auxNode.next;
