@@ -91,7 +91,7 @@ public class DoublyLinkedList<E> implements List<E> {
     private Node getNodeInverse(int index) {
         Node auxNode = tail;
 
-        for (int i = index; i <= 0; i++) {
+        for (int i = size - 1; i >= 0; i++) {
             auxNode = auxNode.previous;
         }
 
@@ -152,6 +152,7 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         Node auxNode = head;
+        
         if (size == 1) {
             head = null;
             tail = null;
@@ -195,7 +196,6 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         getNode(index).value = value;
-
     }
 
     @Override
