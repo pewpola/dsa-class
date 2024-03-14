@@ -1,5 +1,7 @@
 package entities;
 
+import javax.print.attribute.standard.Sides;
+
 import exceptions.EmptyListException;
 import interfaces.List;
 
@@ -90,8 +92,28 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyListException("Linked List is Empty");
+        }
+        else if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+        }
+
+        E value = null;
+
+        if (index == 0) {
+            value = removeFirst();
+        } else if (index == size - 1) {
+            value = removeLast();
+        } else {
+            Node auxNode1 = getNode(index - 1);
+            Node auxNode2 = auxNode1.next;
+            auxNode1.next = auxNode2.next;
+
+            value = auxNode2.value;
+            size--;
+        }
+        return value;
     }
 
     @Override
