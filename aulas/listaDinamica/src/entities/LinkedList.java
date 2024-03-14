@@ -42,9 +42,10 @@ public class LinkedList<E> implements List<E> {
         if (isEmpty()) {
             throw new EmptyListException("Linked List is Empty");
         }
-        
+
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         return getNode(index).value;
@@ -102,7 +103,8 @@ public class LinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         E value = null;
@@ -166,9 +168,10 @@ public class LinkedList<E> implements List<E> {
         if (isEmpty()) {
             throw new EmptyListException("Linked List is Empty");
         }
-        
+
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - ]" + (size - 1));
         }
 
         getNode(index).value = value;
@@ -181,12 +184,12 @@ public class LinkedList<E> implements List<E> {
     }
 
     @Override
-    public String toString() {        
+    public String toString() {
         StringBuilder sb = new StringBuilder("[");
         Node auxNode = head;
-        while(auxNode != null) {
+        while (auxNode != null) {
             sb.append(auxNode.value);
-            if(auxNode.next != null){
+            if (auxNode.next != null) {
                 sb.append(", ");
             }
             auxNode = auxNode.next;
