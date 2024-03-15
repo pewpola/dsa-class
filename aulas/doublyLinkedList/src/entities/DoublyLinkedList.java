@@ -143,10 +143,12 @@ public class DoublyLinkedList<E> implements List<E> {
             Node auxNode1 = getNode(index - 1);
             Node auxNode2 = auxNode1.next;
             auxNode1.next = auxNode2.next;
+            auxNode1.next.previous = auxNode1;
 
             value = auxNode2.value;
             size--;
         }
+
         return value;
     }
 
