@@ -8,9 +8,11 @@ public class Main {
         list.add(1);
         list.add(2);
         list.add(3);
-        list.insert(2, 4);
-        list.insert(0,5);
+        list.add(4);
         System.out.println(list);
+        list.removeByIndex(1);
+        System.out.println(list);
+        System.out.println(list.inverseList());
     }
 
 }
