@@ -9,11 +9,10 @@ public class Main {
         list.add(2);
         list.add(3);
         list.add(4);
-        System.out.println(list.getInverse(0));
-        System.out.println(list.getInverse(1));
-        System.out.println(list.getInverse(2));
-        System.out.println(list.getInverse(3));
-        System.out.println(list.inverseList());
+        list.removeFirst();
+        System.out.println(list);
+        list.removeLast();
+        System.out.println(list);
     }
 
 }
