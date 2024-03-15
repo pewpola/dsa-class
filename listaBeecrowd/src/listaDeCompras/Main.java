@@ -6,19 +6,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int n;
-
-        n = sc.nextInt();
+        int n = sc.nextInt();
     }
 }
 
-class SalesList {
-
-}
-
 interface List<E> {
-    int size();
-
     void add(E value);
 
     void insert(E value);
@@ -31,127 +23,91 @@ interface List<E> {
 
     E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException;
 
+    boolean isFull();
+
     boolean isEmpty();
 
     E get(int index) throws IndexOutOfBoundsException;
 
     void set(int index, E value) throws IndexOutOfBoundsException;
+
+    boolean contains(E value);
 }
 
-class DoublyLinkedList<E> implements List<E> {
+class StaticList<E> implements List<E> {
+    public int size;
+    private Object[] list;
+    private final int MAX_SIZE;
 
-    private class Node {
-        E value;
-        Node next;
-        Node previous;
-
-        public Node(E value) {
-            this.value = value;
+    @Override
+    public boolean contains(E value) {
+        for (int i = 0; i < size; i++) {
+            if (list[i].equals(value)) {
+                return true;
+            }
         }
+        return false;
     }
 
-    private int size;
-    private Node head;
-    private Node tail;
-
-    public DoublyLinkedList() {
-    }
-
-    public DoublyLinkedList(E value) {
-        add(value);
+    public StaticList(int MAX_SIZE) {
+        list = new Object[MAX_SIZE];
+        this.MAX_SIZE = MAX_SIZE;
     }
 
     @Override
     public void add(E value) {
-        Node newNode = new Node(value);
-        if (isEmpty()) {
-            head = newNode;
-        } else {
-            tail.next = newNode;
-            newNode.previous = tail;
+        if (isFull()) {
+            throw new FullListException("Static List is Full!");
         }
-        tail = newNode;
+        list[size] = value;
         size++;
+    }
+
+    private void checkIndex(int index, int referenceIndex) {
+        if (index < 0 || index >= referenceIndex) {
+            throw new IndexOutOfBoundsException("Index " + index + " is not valid!");
+        }
     }
 
     @Override
     public E get(int index) throws IndexOutOfBoundsException {
-        if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
-        }
-
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
-        }
-
-        return getNode(index).value;
-    }
-
-    public E getInverse(int index) throws IndexOutOfBoundsException {
-        if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
-        }
-
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
-        }
-
-        return getNodeInverse(index).value;
+        checkIndex(index, size);
+        @SuppressWarnings("unchecked")
+        E result = (E) list[index];
+        return result;
     }
 
     @Override
     public void insert(E value) {
-        Node newNode = new Node(value);
-
-        if (isEmpty()) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            newNode.next = head;
-            head.previous = newNode;
-            head = newNode;
+        if (isFull()) {
+            throw new FullListException("Static List is Full!");
         }
 
+        for (int i = size; i > 0; i--) {
+            list[i] = list[i - 1];
+        }
+
+        list[0] = value;
         size++;
-    }
-
-    private Node getNode(int index) {
-        Node auxNode = head;
-
-        for (int i = 0; i < index; i++) {
-            auxNode = auxNode.next;
-        }
-
-        return auxNode;
-    }
-
-    private Node getNodeInverse(int index) {
-        Node auxNode = tail;
-
-        for (int i = size - 1; i > index; i--) {
-            auxNode = auxNode.previous;
-        }
-
-        return auxNode;
     }
 
     @Override
     public void insert(int index, E value) throws IndexOutOfBoundsException {
-        if (index <= 0) {
-            insert(value);
-        } else if (index >= size) {
+        if (isFull()) {
+            throw new FullListException("Static List is Full");
+        }
+
+        checkIndex(index, MAX_SIZE);
+
+        if (index >= size) {
             add(value);
         } else {
-            Node newNode = new Node(value);
-            Node auxNode1 = getNode(index);
-            Node auxNode2 = getNode(index - 1);
+            for (int i = size; i > index; i--) {
+                list[i] = list[i - 1];
+            }
 
-            newNode.next = auxNode2.next;
-            newNode.previous = auxNode1.previous;
-            auxNode2.next = newNode;
-            auxNode1.previous = newNode;
+            list[index] = value;
+            size++;
         }
     }
 
@@ -161,131 +117,73 @@ class DoublyLinkedList<E> implements List<E> {
     }
 
     @Override
-    public E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException {
+    public boolean isFull() {
+        return size == MAX_SIZE;
+    }
+
+    @Override
+    public E removeByIndex(int index) throws IndexOutOfBoundsException {
         if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
+            throw new EmptyListException("Static List is Empty");
         }
 
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
+        checkIndex(index, size);
+
+        @SuppressWarnings("unchecked")
+        E value = (E) list[index];
+        for (int i = index; i < size - 1; i++) {
+            list[i] = list[i + 1];
         }
 
-        E value = null;
-
-        if (index == 0) {
-            value = removeFirst();
-        } else if (index == size - 1) {
-            value = removeLast();
-        } else {
-            Node auxNode1 = getNode(index - 1);
-            Node auxNode2 = auxNode1.next;
-            auxNode1.next = auxNode2.next;
-            auxNode1.next.previous = auxNode1;
-
-            value = auxNode2.value;
-            size--;
-        }
-
+        size--;
         return value;
     }
 
     @Override
     public E removeFirst() throws EmptyListException {
         if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
+            throw new EmptyListException("Static List is Empty");
         }
 
-        Node auxNode = head;
+        @SuppressWarnings("unchecked")
+        E value = (E) list[0];
 
-        if (size == 1) {
-            head = null;
-            tail = null;
-        } else {
-            head = head.next;
-            auxNode.next = null;
+        for (int i = 0; i < size - 1; i++) {
+            list[i] = list[i + 1];
         }
         size--;
 
-        return auxNode.value;
+        return value;
     }
 
     @Override
     public E removeLast() throws EmptyListException {
         if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
+            throw new EmptyListException("Static List is Empty");
         }
-
-        E value = tail.value;
-
-        if (size == 1) {
-            head = null;
-            tail = null;
-        } else {
-            Node auxNode = getNode(size - 2);
-            tail = auxNode;
-            tail.next = null;
-        }
-        size--;
+        @SuppressWarnings("unchecked")
+        E value = (E) list[--size];
         return value;
     }
 
     @Override
     public void set(int index, E value) throws IndexOutOfBoundsException {
-        if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
-        }
-
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException(
-                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
-        }
-
-        getNode(index).value = value;
-    }
-
-    @Override
-    public int size() {
-        return size;
+        checkIndex(index, size);
+        list[index] = value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        Node auxNode = head;
-        while (auxNode != null) {
-            sb.append(auxNode.value);
-            if (auxNode.next != null) {
-                sb.append(", ");
-            }
-            auxNode = auxNode.next;
-        }
-        return sb.append("]").toString();
-    }
-
-    public String inverseList() {
-        StringBuilder sb = new StringBuilder("[");
-        Node auxNode = tail;
-        while (auxNode != null) {
-            sb.append(auxNode.value);
-            if (auxNode.previous != null) {
-                sb.append(", ");
-            }
-            auxNode = auxNode.previous;
-        }
-        return sb.append("]").toString();
-    }
-
-    public boolean contains(E value) {
-        Node auxNode = new Node(value);
-
-        for (int i = 0; i < size ; i++) {
-            auxNode = auxNode.next;
-            if (auxNode.next == value) {
-                return true;
+        StringBuilder data = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            if (i == size - 1) {
+                data.append(list[i]);
+            } else {
+                data.append(list[i]).append(", ");
             }
         }
-        return false;
+        data.append("]");
+        return data.toString();
     }
 }
 
