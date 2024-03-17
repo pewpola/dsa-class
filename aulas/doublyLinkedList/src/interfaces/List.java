@@ -13,4 +13,5 @@ public interface List<E> {
     boolean isEmpty();
     E get(int index) throws IndexOutOfBoundsException;
     void set(int index, E value) throws IndexOutOfBoundsException;  
+    void clear();
 }
