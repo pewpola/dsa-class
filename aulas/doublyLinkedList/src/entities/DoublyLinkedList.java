@@ -52,18 +52,6 @@ public class DoublyLinkedList<E> implements List<E> {
         return getNode(index).value;
     }
 
-    public E getInverse(int index) throws IndexOutOfBoundsException {
-        if (isEmpty()) {
-            throw new EmptyListException("Linked List is Empty");
-        }
-
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
-        }
-
-        return getNodeInverse(index).value;
-    }
-
     @Override
     public void insert(E value) {
         Node newNode = new Node(value);
@@ -85,16 +73,6 @@ public class DoublyLinkedList<E> implements List<E> {
 
         for (int i = 0; i < index; i++) {
             auxNode = auxNode.next;
-        }
-
-        return auxNode;
-    }
-
-    private Node getNodeInverse(int index) {
-        Node auxNode = tail;
-
-        for (int i = size - 1; i > index; i--) {
-            auxNode = auxNode.previous;
         }
 
         return auxNode;
