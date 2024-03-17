@@ -10,9 +10,9 @@ public class Main {
         list.add(3);
         list.add(4);
         System.out.println(list);
-        list.removeByIndex(1);
+        list.clear();
         System.out.println(list);
-        System.out.println(list.inverseList());
+        System.out.println(list.size());
     }
 
 }
