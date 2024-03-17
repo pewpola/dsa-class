@@ -46,7 +46,8 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         return getNode(index).value;
@@ -108,7 +109,8 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         E value = null;
@@ -177,7 +179,8 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
+            throw new IndexOutOfBoundsException(
+                    "Illegal index " + index + ". Available indexes are [0 - " + (size - 1) + "]");
         }
 
         getNode(index).value = value;
@@ -213,5 +216,11 @@ public class DoublyLinkedList<E> implements List<E> {
             auxNode = auxNode.previous;
         }
         return sb.append("]").toString();
+    }
+
+    @Override
+    public void clear() {
+        head = null;
+        tail = null;
     }
 }
