@@ -219,10 +219,10 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public void insereOrdenado(E value) {
+    public void orderedInsert(E value) {
         Node auxNode = new Node(value);
 
-        if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0){
+        if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0) {
             auxNode.next = head;
             if (head != null)
                 head.previous = auxNode;
@@ -230,17 +230,17 @@ public class DoublyLinkedList<E> implements List<E> {
             if (tail == null)
                 tail = auxNode;
         } else {
-            Node atual = head;
+            Node current = head;
 
-            while (atual.next != null && ((Comparable<E>) value).compareTo(atual.next.value) > 0) {
-                atual = atual.next;
+            while (current.next != null && ((Comparable<E>) value).compareTo(current.next.value) > 0) {
+                current = current.next;
             }
-            auxNode.next = atual.next;
-            if (atual.next != null)
-                atual.next.previous = auxNode;
-            atual.next = auxNode;
-            auxNode.previous = atual;
-            if (atual == tail) {
+            auxNode.next = current.next;
+            if (current.next != null)
+                current.next.previous = auxNode;
+            current.next = auxNode;
+            auxNode.previous = current;
+            if (current == tail) {
                 tail = auxNode;
             }
         }
