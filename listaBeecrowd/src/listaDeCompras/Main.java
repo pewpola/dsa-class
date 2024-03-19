@@ -1,8 +1,26 @@
 package listaDeCompras;
 
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            sc.nextLine();
+            
+            StaticList<String> list = new StaticList<>(100);
+            String[] items = sc.nextLine().split(" ");
+
+            for (String item : items) {
+                list.add(item);
+            }
+            System.out.println(list);
+        }
+
+        sc.close();
     }
 }
 
