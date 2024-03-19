@@ -5,18 +5,18 @@ import entities.DoublyLinkedList;
 public class Main {
     public static void main(String[] args) {
         DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
-        list.insereOrdenado(3);
-        list.insereOrdenado(1);
+        list.ordenedInsert(3);
+        list.ordenedInsert(1);
         System.out.println(list);
-        list.insereOrdenado(2);
+        list.ordenedInsert(2);
         System.out.println(list);
-        list.insereOrdenado(4);
+        list.ordenedInsert(4);
         System.out.println(list);
-        list.insereOrdenado(0);
+        list.ordenedInsert(0);
         System.out.println(list);
-        list.insereOrdenado(6);
+        list.ordenedInsert(6);
         System.out.println(list);
-        list.insereOrdenado(5);
+        list.ordenedInsert(5);
         System.out.println(list);
 
         /*
