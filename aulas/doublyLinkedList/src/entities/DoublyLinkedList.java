@@ -218,6 +218,35 @@ public class DoublyLinkedList<E> implements List<E> {
         return sb.append("]").toString();
     }
 
+    @SuppressWarnings("unchecked")
+    public void insereOrdenado(E value) {
+        Node auxNode = new Node(value);
+
+        if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0){
+            auxNode.next = head;
+            if (head != null)
+                head.previous = auxNode;
+            head = auxNode;
+            if (tail == null)
+                tail = auxNode;
+        } else {
+            Node atual = head;
+
+            while (atual.next != null && ((Comparable<E>) value).compareTo(atual.next.value) > 0) {
+                atual = atual.next;
+            }
+            auxNode.next = atual.next;
+            if (atual.next != null)
+                atual.next.previous = auxNode;
+            atual.next = auxNode;
+            auxNode.previous = atual;
+            if (atual == tail) {
+                tail = auxNode;
+            }
+        }
+        size++;
+    }
+
     @Override
     public void clear() {
         head = null;
