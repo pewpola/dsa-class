@@ -219,7 +219,7 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public void orderedInsert(E value) {
+    public void ordenedInsert(E value) {
         Node auxNode = new Node(value);
 
         if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0) {
