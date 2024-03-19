@@ -11,6 +11,11 @@ public class Main {
         list.add(4);
         System.out.println(list.removeLast());
         System.out.println(list);
+        System.out.println(list.inverseList());
+        list.add(4);
+        System.out.println(list);
+        list.removeFirst();
+        System.out.println(list.inverseList());
         /* 
         System.out.println(list);
         list.clear();
