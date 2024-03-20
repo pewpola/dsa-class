@@ -201,7 +201,7 @@ public class LinkedList<E> implements List<E> {
     @SuppressWarnings("unchecked")
     public void insertOrdened(E value) {
         Node newNode = new Node(value);
-    
+
         if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0) {
             newNode.next = head;
             head = newNode;
@@ -213,11 +213,11 @@ public class LinkedList<E> implements List<E> {
             newNode.next = current.next;
             current.next = newNode;
         }
-    
+
         if (newNode.next == null) {
             tail = newNode;
         }
-    
+
         size++;
     }
 }
