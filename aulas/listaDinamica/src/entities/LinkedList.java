@@ -199,7 +199,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public void insertOrdered(E value) {
+    public void insertOrdened(E value) {
         Node newNode = new Node(value);
     
         if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0) {
