@@ -18,6 +18,7 @@ public class Main {
         System.out.println(list);
         list.ordenedInsert(5);
         System.out.println(list);
+        System.out.println(list.inverseList());
 
         /*
         System.out.println(list.removeLast());
