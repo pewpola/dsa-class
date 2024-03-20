@@ -220,32 +220,34 @@ public class DoublyLinkedList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     public void ordenedInsert(E value) {
-        Node auxNode = new Node(value);
+        Node newNode = new Node(value);
 
         if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0) {
-            auxNode.next = head;
-            if (head != null)
-                head.previous = auxNode;
-            head = auxNode;
-            if (tail == null)
-                tail = auxNode;
+            newNode.next = head;
+            if (head != null) {
+                head.previous = newNode;
+            }
+            head = newNode;
         } else {
             Node current = head;
-
             while (current.next != null && ((Comparable<E>) value).compareTo(current.next.value) > 0) {
                 current = current.next;
             }
-            auxNode.next = current.next;
-            if (current.next != null)
-                current.next.previous = auxNode;
-            current.next = auxNode;
-            auxNode.previous = current;
-            if (current == tail) {
-                tail = auxNode;
+            newNode.next = current.next;
+            newNode.previous = current;
+            current.next = newNode;
+            if (newNode.next != null) {
+                newNode.next.previous = newNode;
             }
         }
+
+        if (newNode.next == null) {
+            tail = newNode;
+        }
+
         size++;
     }
+
 
     @Override
     public void clear() {
