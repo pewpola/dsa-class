@@ -197,4 +197,27 @@ public class LinkedList<E> implements List<E> {
         }
         return sb.append("]").toString();
     }
+
+    @SuppressWarnings("unchecked")
+    public void insertOrdered(E value) {
+        Node newNode = new Node(value);
+    
+        if (isEmpty() || ((Comparable<E>) value).compareTo(head.value) <= 0) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null && ((Comparable<E>) value).compareTo(current.next.value) > 0) {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            current.next = newNode;
+        }
+    
+        if (newNode.next == null) {
+            tail = newNode;
+        }
+    
+        size++;
+    }
 }
