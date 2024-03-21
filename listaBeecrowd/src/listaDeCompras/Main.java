@@ -24,6 +24,78 @@ public class Main {
     }
 }
 
+class StaticListaDeCompras {
+    StaticList<String> items;
+
+    public StaticListaDeCompras(String[] listaDeElementos) {
+        items = new StaticList<String>(100);
+        for (String elemento : listaDeElementos) {
+            items.add(elemento);
+        }
+    }
+
+    public StaticList<String> getListaSemRepeticao() {
+        StaticList<String> listaSemDuplicatas = new StaticList<String>(100);
+
+        _adicionarNovos(listaSemDuplicatas, 0);
+        return listaSemDuplicatas;
+    }
+
+    private void _adicionarNovos(StaticList<String> listaSemDuplicatas, int indiceDePartida) {
+        if (indiceDePartida == this.items.size) {
+            return;
+        }
+
+        String elemento = this.items.get(indiceDePartida);
+        boolean existeNaLista = listaSemDuplicatas.contains(elemento);
+        if (!existeNaLista) {
+            listaSemDuplicatas.add(elemento);
+            _adicionarNovos(listaSemDuplicatas, indiceDePartida + 1);
+        } else {
+            _adicionarNovos(listaSemDuplicatas, indiceDePartida + 1);
+        }
+    }
+
+    public static String escolherPrimeiroEmOrdemAlfabetica(String a, String b) {
+        if (a.compareTo(b) < 0) {
+            return a;
+        }
+        return b;
+    }
+
+    public static boolean vemPrimeiroNoAlfabeto(String a, String b) {
+        return a.compareTo(b) < 0;
+    }
+
+    public StaticList<String> getListaDeComprasOrdenada() {
+        StaticList<String> semDuplicatas = getListaSemRepeticao();
+        _percorrerLista(semDuplicatas, 0);
+        return semDuplicatas;
+    }
+
+    private void _percorrerLista(StaticList<String> semDuplicatas, int i) {
+        if (i == semDuplicatas.size) {
+            return;
+        }
+
+        _ordenarLista(semDuplicatas, i, 0);
+        _percorrerLista(semDuplicatas, i + 1);
+    }
+
+    private void _ordenarLista(StaticList<String> semDuplicatas, int i, int j) {
+        if (j == semDuplicatas.size - 1) {
+            return;
+        }
+        if (!vemPrimeiroNoAlfabeto(semDuplicatas.get(j), semDuplicatas.get(j + 1))) {
+            String temp = semDuplicatas.get(j);
+            semDuplicatas.set(j, semDuplicatas.get(j + 1));
+            semDuplicatas.set(j + 1, temp);
+        }
+        _ordenarLista(semDuplicatas, i, j + 1);
+    }
+}
+
+
 interface List<E> {
     void add(E value);
 
