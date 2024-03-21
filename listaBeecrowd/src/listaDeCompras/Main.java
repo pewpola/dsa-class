@@ -3,22 +3,22 @@ package listaDeCompras;
 import java.util.Scanner;
 
 public class Main {
-    public static void printarFormatado(StaticList<String> lista) {
-        String linha = "";
-        String linhaFormatada = _concatenarStrings(lista, 0, linha);
-        System.out.println(linhaFormatada);
+    public static void printarFormatado(StaticList<String> list) {
+        String line = "";
+        String formatedLine = _concatenarStrings(list, 0, line);
+        System.out.println(formatedLine);
     }
 
-    public static String _concatenarStrings(StaticList<String> lista, int posicao, String linha) {
-        if (posicao == lista.size) {
-            return linha;
+    public static String _concatenarStrings(StaticList<String> list, int index, String line) {
+        if (index == list.size) {
+            return line;
         }
-        if (posicao == lista.size - 1) {
-            linha = linha + lista.get(posicao);
+        if (index == list.size - 1) {
+            line = line + list.get(index);
         } else {
-            linha = linha + lista.get(posicao) + " ";
+            line = line + list.get(index) + " ";
         }
-        return _concatenarStrings(lista, posicao + 1, linha);
+        return _concatenarStrings(list, index + 1, line);
     }
 
     public static void main(String[] args) {
@@ -27,87 +27,86 @@ public class Main {
         scanner.nextLine();
 
         for (int i = 0; i < N; i++) {
-            String[] linhaComItens = scanner.nextLine().split(" ");
-            StaticListaDeCompras listaDeCompras = new StaticListaDeCompras(linhaComItens);
-            StaticList<String> arrayOrdenado = listaDeCompras.getListaDeComprasOrdenada();
-            printarFormatado(arrayOrdenado);
+            String[] lineWithItems = scanner.nextLine().split(" ");
+            ListaDeCompras listaDeCompras = new ListaDeCompras(lineWithItems);
+            StaticList<String> ordenedList = listaDeCompras.listaDeComprasOrdened();
+            printarFormatado(ordenedList);
         }
         scanner.close();
     }
 }
 
 
-class StaticListaDeCompras {
+class ListaDeCompras {
     StaticList<String> items;
 
-    public StaticListaDeCompras(String[] listaDeElementos) {
+    public ListaDeCompras(String[] listaDeCompras) {
         items = new StaticList<String>(100);
-        for (String elemento : listaDeElementos) {
-            items.add(elemento);
+        for (String element : listaDeCompras) {
+            items.add(element);
         }
     }
 
-    public StaticList<String> getListaSemRepeticao() {
-        StaticList<String> listaSemDuplicatas = new StaticList<String>(100);
+    public StaticList<String> listWithoutReps() {
+        StaticList<String> listNoReps = new StaticList<String>(100);
 
-        _adicionarNovos(listaSemDuplicatas, 0);
-        return listaSemDuplicatas;
+        addNewElements(listNoReps, 0);
+        return listNoReps;
     }
 
-    private void _adicionarNovos(StaticList<String> listaSemDuplicatas, int indiceDePartida) {
-        if (indiceDePartida == this.items.size) {
+    private void addNewElements(StaticList<String> listNoReps, int startIndex) {
+        if (startIndex == this.items.size) {
             return;
         }
 
-        String elemento = this.items.get(indiceDePartida);
-        boolean existeNaLista = listaSemDuplicatas.contains(elemento);
-        if (!existeNaLista) {
-            listaSemDuplicatas.add(elemento);
-            _adicionarNovos(listaSemDuplicatas, indiceDePartida + 1);
+        String element = this.items.get(startIndex);
+        boolean elementInList = listNoReps.contains(element);
+        if (!elementInList) {
+            listNoReps.add(element);
+            addNewElements(listNoReps, startIndex + 1);
         } else {
-            _adicionarNovos(listaSemDuplicatas, indiceDePartida + 1);
+            addNewElements(listNoReps, startIndex + 1);
         }
     }
 
-    public static String escolherPrimeiroEmOrdemAlfabetica(String a, String b) {
+    public static String chooseFirstInAlphabeticalOrder(String a, String b) {
         if (a.compareTo(b) < 0) {
             return a;
         }
         return b;
     }
 
-    public static boolean vemPrimeiroNoAlfabeto(String a, String b) {
+    public static boolean comeFirstAlphabeticalOrder(String a, String b) {
         return a.compareTo(b) < 0;
     }
 
-    public StaticList<String> getListaDeComprasOrdenada() {
-        StaticList<String> semDuplicatas = getListaSemRepeticao();
-        _percorrerLista(semDuplicatas, 0);
-        return semDuplicatas;
+    public StaticList<String> listaDeComprasOrdened() {
+        StaticList<String> noDuplicated = listWithoutReps();
+        listTraversal(noDuplicated, 0);
+        return noDuplicated;
     }
 
-    private void _percorrerLista(StaticList<String> semDuplicatas, int i) {
-        if (i == semDuplicatas.size) {
+    private void listTraversal(StaticList<String> noDuplicated, int i) {
+        if (i == noDuplicated.size) {
             return;
         }
 
-        _ordenarLista(semDuplicatas, i, 0);
-        _percorrerLista(semDuplicatas, i + 1);
+        orderList(noDuplicated, i, 0);
+        listTraversal(noDuplicated, i + 1);
     }
 
-    private void _ordenarLista(StaticList<String> semDuplicatas, int i, int j) {
-        if (j == semDuplicatas.size - 1) {
+    private void orderList(StaticList<String> noDuplicated, int i, int j) {
+        if (j == noDuplicated.size - 1) {
             return;
         }
-        if (!vemPrimeiroNoAlfabeto(semDuplicatas.get(j), semDuplicatas.get(j + 1))) {
-            String temp = semDuplicatas.get(j);
-            semDuplicatas.set(j, semDuplicatas.get(j + 1));
-            semDuplicatas.set(j + 1, temp);
+        if (!comeFirstAlphabeticalOrder(noDuplicated.get(j), noDuplicated.get(j + 1))) {
+            String temp = noDuplicated.get(j);
+            noDuplicated.set(j, noDuplicated.get(j + 1));
+            noDuplicated.set(j + 1, temp);
         }
-        _ordenarLista(semDuplicatas, i, j + 1);
+        orderList(noDuplicated, i, j + 1);
     }
 }
-
 
 interface List<E> {
     void add(E value);
