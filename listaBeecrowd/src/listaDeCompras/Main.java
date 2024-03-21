@@ -3,26 +3,39 @@ package listaDeCompras;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void printarFormatado(StaticList<String> lista) {
+        String linha = "";
+        String linhaFormatada = _concatenarStrings(lista, 0, linha);
+        System.out.println(linhaFormatada);
+    }
 
-        int n = sc.nextInt();
-
-        for (int i = 0; i < n; i++) {
-            sc.nextLine();
-            
-            StaticList<String> list = new StaticList<>(100);
-            String[] items = sc.nextLine().split(" ");
-
-            for (String item : items) {
-                list.add(item);
-            }
-            System.out.println(list);
+    public static String _concatenarStrings(StaticList<String> lista, int posicao, String linha) {
+        if (posicao == lista.size) {
+            return linha;
         }
+        if (posicao == lista.size - 1) {
+            linha = linha + lista.get(posicao);
+        } else {
+            linha = linha + lista.get(posicao) + " ";
+        }
+        return _concatenarStrings(lista, posicao + 1, linha);
+    }
 
-        sc.close();
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        scanner.nextLine();
+
+        for (int i = 0; i < N; i++) {
+            String[] linhaComItens = scanner.nextLine().split(" ");
+            StaticListaDeCompras listaDeCompras = new StaticListaDeCompras(linhaComItens);
+            StaticList<String> arrayOrdenado = listaDeCompras.getListaDeComprasOrdenada();
+            printarFormatado(arrayOrdenado);
+        }
+        scanner.close();
     }
 }
+
 
 class StaticListaDeCompras {
     StaticList<String> items;
