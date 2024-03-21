@@ -41,14 +41,14 @@ class ListaDeCompras {
     StaticList<String> items;
 
     public ListaDeCompras(String[] listaDeCompras) {
-        items = new StaticList<String>(100);
+        items = new StaticList<String>(1000);
         for (String element : listaDeCompras) {
             items.add(element);
         }
     }
 
     public StaticList<String> listWithoutReps() {
-        StaticList<String> listNoReps = new StaticList<String>(100);
+        StaticList<String> listNoReps = new StaticList<String>(1000);
 
         addNewElements(listNoReps, 0);
         return listNoReps;
