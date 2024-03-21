@@ -3,13 +3,13 @@ package listaDeCompras;
 import java.util.Scanner;
 
 public class Main {
-    public static void printarFormatado(StaticList<String> list) {
+    public static void formatedPrint(StaticList<String> list) {
         String line = "";
-        String formatedLine = _concatenarStrings(list, 0, line);
+        String formatedLine = concatStrings(list, 0, line);
         System.out.println(formatedLine);
     }
 
-    public static String _concatenarStrings(StaticList<String> list, int index, String line) {
+    public static String concatStrings(StaticList<String> list, int index, String line) {
         if (index == list.size) {
             return line;
         }
@@ -18,7 +18,7 @@ public class Main {
         } else {
             line = line + list.get(index) + " ";
         }
-        return _concatenarStrings(list, index + 1, line);
+        return concatStrings(list, index + 1, line);
     }
 
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Main {
             String[] lineWithItems = scanner.nextLine().split(" ");
             ListaDeCompras listaDeCompras = new ListaDeCompras(lineWithItems);
             StaticList<String> ordenedList = listaDeCompras.listaDeComprasOrdened();
-            printarFormatado(ordenedList);
+            formatedPrint(ordenedList);
         }
         scanner.close();
     }
