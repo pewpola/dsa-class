@@ -1,7 +1,40 @@
 package trilhos;
 
+import java.util.Scanner;
+
 public class Main {
-    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int atual, n, top;
+        int[] vetor = new int[1005];
+        
+        while ((n = scanner.nextInt()) != 0) {
+            while ((vetor[0] = scanner.nextInt()) != 0) {
+                for (int i = 1; i < n; i++) {
+                    vetor[i] = scanner.nextInt();
+                }
+                
+                DoublyLinkedList<Integer> lista = new DoublyLinkedList<>();
+                atual = 0;
+                
+                for (int i = 1; i <= n; i++) {
+                    lista.add(i);
+                    
+                    while (!lista.isEmpty() && vetor[atual] == lista.top()) {
+                        atual++;
+                        lista.removeLast();
+                    }
+                }
+                
+                System.out.println((lista.isEmpty() ? "Yes" : "No"));
+            }
+            
+            System.out.println();
+        }
+        
+        scanner.close();
+    }
 }
 
 class DoublyLinkedList<E> {
@@ -17,8 +50,8 @@ class DoublyLinkedList<E> {
     }
 
     private int size;
-    private Node head;
-    private Node tail;
+    public Node head;
+    public Node tail;
 
     public DoublyLinkedList() {
     }
