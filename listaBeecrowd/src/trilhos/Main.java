@@ -6,28 +6,28 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        int atual, n, top;
-        int[] vetor = new int[1005];
+        int current, n;
+        int[] arr = new int[1005];
         
         while ((n = scanner.nextInt()) != 0) {
-            while ((vetor[0] = scanner.nextInt()) != 0) {
+            while ((arr[0] = scanner.nextInt()) != 0) {
                 for (int i = 1; i < n; i++) {
-                    vetor[i] = scanner.nextInt();
+                    arr[i] = scanner.nextInt();
                 }
                 
-                DoublyLinkedList<Integer> lista = new DoublyLinkedList<>();
-                atual = 0;
+                DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+                current = 0;
                 
                 for (int i = 1; i <= n; i++) {
-                    lista.add(i);
+                    list.add(i);
                     
-                    while (!lista.isEmpty() && vetor[atual] == lista.top()) {
-                        atual++;
-                        lista.removeLast();
+                    while (!list.isEmpty() && arr[current] == list.top()) {
+                        current++;
+                        list.removeLast();
                     }
                 }
                 
-                System.out.println((lista.isEmpty() ? "Yes" : "No"));
+                System.out.println((list.isEmpty() ? "Yes" : "No"));
             }
             
             System.out.println();
