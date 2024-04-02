@@ -60,4 +60,24 @@ public class DynamicStack<E> implements Stack<E>{
 
         return top.value;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+
+        Node auxNode = top;
+
+        while (auxNode != null) {
+            sb.append(auxNode.value);
+
+            if (auxNode == top) {
+                sb.append(" <- top");
+            }
+
+            sb.append("\n");
+            auxNode = auxNode.next;
+        }
+
+        return sb.toString();
+    }
 }
