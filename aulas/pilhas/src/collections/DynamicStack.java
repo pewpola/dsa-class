@@ -28,7 +28,14 @@ public class DynamicStack<E> implements Stack<E>{
 
     @Override
     public E pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException("Stack is Empty!");
+        }
+
+        E value = top.value;
+        top = top.next;
         
+        return value;
     }
 
     @Override
