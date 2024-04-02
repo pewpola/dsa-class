@@ -1,12 +1,16 @@
-import collections.StaticStack;
+import collections.DynamicStack;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        StaticStack<Integer> stack = new StaticStack<>(10);
-        
-        stack.push(7);
-        stack.push(9);
+        DynamicStack<Integer> stack = new DynamicStack<>();
 
+        stack.push(3);
+        stack.push(9);
+        stack.push(5);
+        System.out.println(stack);
+        stack.pop();
+        System.out.println(stack);
+        stack.pop();
         System.out.println(stack);
     }
 }
