@@ -23,14 +23,12 @@ public class DynamicStack<E> implements Stack<E>{
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return height == 0;
     }
 
     @Override
     public E pop() {
-        // TODO Auto-generated method stub
-        return null;
+        
     }
 
     @Override
