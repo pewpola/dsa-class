@@ -1,6 +1,6 @@
 package collections;
 
-import java.util.EmptyStackException;
+import exceptions.*;
 
 public class StaticStack<E> implements Stack<E> {
 
@@ -22,6 +22,10 @@ public class StaticStack<E> implements Stack<E> {
         return height == 0;
     }
 
+    public boolean isFull() {
+        return height == stack.length;
+    }
+
     @Override
     public E pop() {
         if (isEmpty()) {
@@ -33,7 +37,9 @@ public class StaticStack<E> implements Stack<E> {
 
     @Override
     public void push(E value) {
-        // TODO Auto-generated method stub
+        if (isFull()) {
+
+        }
         
     }
 
