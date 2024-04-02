@@ -1,5 +1,7 @@
 package collections;
 
+import java.util.EmptyStackException;
+
 public class StaticStack<E> implements Stack<E> {
 
     private int height;
@@ -22,7 +24,11 @@ public class StaticStack<E> implements Stack<E> {
 
     @Override
     public E pop() {
-        
+        if (isEmpty()) {
+            throw new EmptyStackException("Stack is empty!");
+        }
+
+        return stack[--height];
     }
 
     @Override
