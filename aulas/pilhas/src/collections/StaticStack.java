@@ -1,6 +1,14 @@
 package collections;
 
-public class StaticStack<E> implements Stack<E>{
+public class StaticStack<E> implements Stack<E> {
+
+    private int height;
+    private E[] stack;
+
+    @SuppressWarnings("unchecked")
+    public StaticStack(int maxHeight) {
+        stack = (E[])new Object[maxHeight];
+    }
 
     @Override
     public int height() {
