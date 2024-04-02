@@ -47,9 +47,24 @@ public class StaticStack<E> implements Stack<E> {
     @Override
     public E top() {
         if (isEmpty()) {
-            throw new EmptyStackException("Stack is Empty!")
+            throw new EmptyStackException("Stack is Empty!");
         }
 
         return stack[height - 1];
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+
+        for (int i = height - 1; i >= 0; i--) {
+            sb.append(stack[i]);
+
+            if (i != 0) {
+                sb.append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 }
