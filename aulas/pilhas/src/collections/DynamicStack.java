@@ -1,5 +1,7 @@
 package collections;
 
+import exceptions.*;
+
 public class DynamicStack<E> implements Stack<E>{
     
     class Node {
@@ -9,15 +11,14 @@ public class DynamicStack<E> implements Stack<E>{
         public Node (E value) {
             this.value = value;
         }
-
-        private Node top;
-        private int height;
     }
-    
+
+    private Node top;
+    private int height;
+
     @Override
     public int height() {
-        // TODO Auto-generated method stub
-        return 0;
+        return height;
     }
 
     @Override
@@ -34,14 +35,24 @@ public class DynamicStack<E> implements Stack<E>{
 
     @Override
     public void push(E value) {
-        // TODO Auto-generated method stub
-        
+        Node newNode = new Node(value);
+
+        if (isEmpty()) {
+            top = newNode;
+        } else {
+            newNode.next = top;
+            top = newNode;
+        }
+
+        height++;
     }
 
     @Override
     public E top() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyStackException("Stack is Empty!");
+        }
+
+        return top.value;
     }
-    
 }
