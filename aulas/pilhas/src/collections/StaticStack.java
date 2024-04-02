@@ -38,9 +38,10 @@ public class StaticStack<E> implements Stack<E> {
     @Override
     public void push(E value) {
         if (isFull()) {
-
+            throw new FullStackException("Stack is full");
         }
-        
+
+        stack[height++] = value;
     }
 
     @Override
