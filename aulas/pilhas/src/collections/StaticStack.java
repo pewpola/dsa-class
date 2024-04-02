@@ -12,20 +12,17 @@ public class StaticStack<E> implements Stack<E> {
 
     @Override
     public int height() {
-        // TODO Auto-generated method stub
-        return 0;
+        return height;
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return height == 0;
     }
 
     @Override
     public E pop() {
-        // TODO Auto-generated method stub
-        return null;
+        
     }
 
     @Override
