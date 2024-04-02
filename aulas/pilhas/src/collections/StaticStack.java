@@ -38,7 +38,7 @@ public class StaticStack<E> implements Stack<E> {
     @Override
     public void push(E value) {
         if (isFull()) {
-            throw new FullStackException("Stack is full");
+            throw new FullStackException("Stack is full!");
         }
 
         stack[height++] = value;
@@ -46,8 +46,10 @@ public class StaticStack<E> implements Stack<E> {
 
     @Override
     public E top() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyStackException("Stack is Empty!")
+        }
+
+        return stack[height - 1];
     }
-    
 }
