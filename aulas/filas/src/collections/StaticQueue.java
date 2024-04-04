@@ -7,7 +7,7 @@ public class StaticQueue<E> implements Queue<E> {
 
     @SuppressWarnings("unchecked")
     public StaticQueue(int maxSize) {
-        queue = (E[])new Object[maxSize];
+        queue = (E[]) new Object[maxSize];
     }
 
     @Override
@@ -18,7 +18,6 @@ public class StaticQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E value) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -31,6 +30,10 @@ public class StaticQueue<E> implements Queue<E> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == queue.length;
     }
 
     @Override
