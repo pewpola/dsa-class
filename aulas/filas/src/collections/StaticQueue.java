@@ -19,7 +19,7 @@ public class StaticQueue<E> implements Queue<E> {
             throw new EmptyQueueException("Queue is Empty");
         }
 
-        return queue[--size];
+        return first();
     }
 
     @Override
@@ -34,8 +34,7 @@ public class StaticQueue<E> implements Queue<E> {
 
     @Override
     public E first() {
-        // TODO Auto-generated method stub
-        return null;
+        return queue[0];
     }
 
     @Override
