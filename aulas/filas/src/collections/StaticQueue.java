@@ -1,5 +1,7 @@
 package collections;
 
+import exceptions.FullQueueException;
+
 public class StaticQueue<E> implements Queue<E> {
 
     private int size;
@@ -18,7 +20,11 @@ public class StaticQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E value) {
-        
+        if (isFull()) {
+            throw new FullQueueException("Queue is full!");
+        }
+
+        queue[size - 1] = value;
     }
 
     @Override
