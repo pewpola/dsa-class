@@ -1,5 +1,6 @@
 package collections;
 
+import exceptions.EmptyQueueException;
 import exceptions.FullQueueException;
 
 public class StaticQueue<E> implements Queue<E> {
@@ -14,14 +15,17 @@ public class StaticQueue<E> implements Queue<E> {
 
     @Override
     public void dequeue() {
-        // TODO Auto-generated method stub
+        if (isEmpty()) {
+            throw new EmptyQueueException("Queue is Empty");
+        }
 
+        queue[--size];
     }
 
     @Override
     public void enqueue(E value) {
         if (isFull()) {
-            throw new FullQueueException("Queue is full!");
+            throw new FullQueueException("Queue is Full!");
         }
 
         queue[size] = value;
