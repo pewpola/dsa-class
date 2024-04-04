@@ -52,6 +52,19 @@ public class StaticQueue<E> implements Queue<E> {
         return size;
     }
 
-    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+
+        for (int i = size - 1; i >= 0; i--) {
+            sb.append(queue[i]);
+
+            if (i != 0) {
+                sb.append(" ");
+            }
+        }
+
+        return sb.toString();
+    }
 
 }
