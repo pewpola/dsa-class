@@ -1,17 +1,25 @@
 package collections;
 
-public class StaticQueue<E> implements Queue<E>{
+public class StaticQueue<E> implements Queue<E> {
+
+    private int size;
+    private E[] queue;
+
+    @SuppressWarnings("unchecked")
+    public StaticQueue(int maxSize) {
+        queue = (E[])new Object[maxSize];
+    }
 
     @Override
     public void dequeue() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void enqueue(E value) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -22,14 +30,12 @@ public class StaticQueue<E> implements Queue<E>{
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return size == 0;
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return size;
     }
-    
+
 }
