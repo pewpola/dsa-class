@@ -27,7 +27,7 @@ public class StaticQueue<E> implements Queue<E> {
         if (size == 0) {
             queue[0] = value;
         } else {
-            queue[size - 1] = value;
+            queue[size] = value;
         }
         size++;
     }
