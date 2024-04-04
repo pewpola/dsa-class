@@ -24,7 +24,12 @@ public class StaticQueue<E> implements Queue<E> {
             throw new FullQueueException("Queue is full!");
         }
 
-        queue[size - 1] = value;
+        if (size == 0) {
+            queue[0] = value;
+        } else {
+            queue[size - 1] = value;
+        }
+        size++;
     }
 
     @Override
@@ -46,5 +51,7 @@ public class StaticQueue<E> implements Queue<E> {
     public int size() {
         return size;
     }
+
+    
 
 }
