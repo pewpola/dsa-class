@@ -18,7 +18,7 @@ public class StaticQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E value) {
-
+        
     }
 
     @Override
