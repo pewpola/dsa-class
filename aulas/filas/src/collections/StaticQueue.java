@@ -14,12 +14,12 @@ public class StaticQueue<E> implements Queue<E> {
     }
 
     @Override
-    public void dequeue() {
+    public E dequeue() {
         if (isEmpty()) {
             throw new EmptyQueueException("Queue is Empty");
         }
 
-        queue[--size];
+        return queue[--size];
     }
 
     @Override
