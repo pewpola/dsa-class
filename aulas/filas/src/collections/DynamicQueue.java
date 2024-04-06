@@ -17,6 +17,16 @@ public class DynamicQueue<E> implements Queue<E> {
     private Node tail;
     private int size;
 
+    public Node getNode(int index) {
+        Node auxNode = head;
+
+        for (int i = 0; i < index; i++) {
+            auxNode = auxNode.next;
+        }
+
+        return auxNode;
+    }
+
     @Override
     public E dequeue() {
         if (isEmpty()) {
@@ -24,7 +34,7 @@ public class DynamicQueue<E> implements Queue<E> {
         }
 
         Node auxNode = head;
-        
+
         if (size == 1) {
             head = null;
             tail = null;
