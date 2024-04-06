@@ -19,7 +19,16 @@ public class StaticQueue<E> implements Queue<E> {
             throw new EmptyQueueException("Queue is Empty");
         }
 
-        return first();
+        E removedElement = queue[0];
+
+        for (int i = 0; i < size - 1; i++) {
+            queue[i] = queue[i + 1];
+        }
+
+        queue[size - 1] = null;
+        size--;
+
+        return removedElement;
     }
 
     @Override
