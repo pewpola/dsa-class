@@ -1,5 +1,7 @@
 package collections;
 
+import exceptions.EmptyQueueException;
+
 public class DynamicQueue<E> implements Queue<E> {
 
     class Node {
@@ -17,8 +19,22 @@ public class DynamicQueue<E> implements Queue<E> {
 
     @Override
     public E dequeue() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyQueueException("Queue is Empty!");
+        }
+
+        Node auxNode = head;
+        
+        if (size == 1) {
+            head = null;
+            tail = null;
+        } else {
+            head = head.next;
+            auxNode.next = null;
+        }
+        size--;
+
+        return auxNode.value;
     }
 
     @Override
