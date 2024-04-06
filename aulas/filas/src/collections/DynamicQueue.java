@@ -24,12 +24,15 @@ public class DynamicQueue<E> implements Queue<E> {
     @Override
     public void enqueue(E value) {
         Node newNode = new Node(value);
+
         if (isEmpty()) {
             head = newNode;
+            tail = newNode;
         } else {
-            tail.next = newNode;
+            newNode.next = head;
+            head = newNode;
         }
-        tail = newNode;
+
         size++;
     }
 
