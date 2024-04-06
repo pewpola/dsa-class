@@ -6,7 +6,7 @@ public class DynamicQueue<E> implements Queue<E> {
         E value;
         Node next;
 
-        public Node (E value) {
+        public Node(E value) {
             this.value = value;
         }
     }
@@ -23,8 +23,7 @@ public class DynamicQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E value) {
-        // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -41,5 +40,20 @@ public class DynamicQueue<E> implements Queue<E> {
     public int size() {
         return size;
     }
-    
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+
+        Node auxNode = head;
+
+        while (auxNode != null) {
+            sb.append(auxNode.value);
+            sb.append(" ");
+            auxNode = auxNode.next;
+        }
+
+        return sb.toString();
+    }
+
 }
