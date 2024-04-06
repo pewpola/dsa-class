@@ -30,21 +30,21 @@ public class DynamicQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         if (isEmpty()) {
-            throw new EmptyQueueException("Queue is Empty!");
+            throw new EmptyQueueException("Linked List is Empty");
         }
 
-        Node auxNode = head;
+        E value = tail.value;
 
         if (size == 1) {
             head = null;
             tail = null;
         } else {
-            head = head.next;
-            auxNode.next = null;
+            Node auxNode = getNode(size - 2);
+            tail = auxNode;
+            tail.next = null;
         }
         size--;
-
-        return auxNode.value;
+        return value;
     }
 
     @Override
