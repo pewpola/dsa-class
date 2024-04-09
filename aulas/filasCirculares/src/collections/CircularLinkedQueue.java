@@ -19,8 +19,23 @@ public class CircularLinkedQueue<E> implements Queue<E> {
 
     @Override
     public E dequeue() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyQueueException("Queue is Empty");
+        }
+
+        E value = first();
+
+        if (size == 1) {
+            first = null;
+            last = null;
+        } else {
+            first = first.next;
+            last.next = first;
+        }
+
+        size--;
+        
+        return value;
     }
 
     @Override
@@ -35,7 +50,7 @@ public class CircularLinkedQueue<E> implements Queue<E> {
 
         last = newNode;
         last.next = first;
-        
+
         size++;
     }
 
