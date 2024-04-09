@@ -1,8 +1,8 @@
-import collections.CircularStaticQueue;
+import collections.CircularLinkedQueue;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        CircularStaticQueue<Integer> queue = new CircularStaticQueue<>(5);
+        CircularLinkedQueue<Integer> queue = new CircularLinkedQueue<>();
 
         queue.enqueue(1);
         queue.enqueue(2);
