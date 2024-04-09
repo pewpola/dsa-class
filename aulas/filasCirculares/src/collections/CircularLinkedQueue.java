@@ -25,8 +25,18 @@ public class CircularLinkedQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E value) {
-        // TODO Auto-generated method stub
+        Node newNode = new Node(value);
         
+        if (isEmpty()) {
+            first = newNode;
+        } else {
+            last.next = newNode;
+        }
+
+        last = newNode;
+        last.next = first;
+        
+        size++;
     }
 
     @Override
