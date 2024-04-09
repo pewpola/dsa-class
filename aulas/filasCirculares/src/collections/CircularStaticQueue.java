@@ -64,7 +64,7 @@ public class CircularStaticQueue<E> implements Queue<E> {
     public String toString() {
         StringBuilder sb = new StringBuilder("[");
 
-        for (int i = size - 1; i >= 0; i--) {
+        for (int i = 0; i < size; i--) {
             sb.append(queue[(first + i) % queue.length]);
             
             if (i != size - 1) {
