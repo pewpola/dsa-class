@@ -20,7 +20,12 @@ public class CircularStaticQueue<E> implements Queue<E> {
             throw new EmptyQueueException("Queue is Empty");
         }
 
-        
+        E value = first();
+        queue[first] = null;
+        first = (first + 1) % queue.length;
+        size--;
+
+        return value;
     }
 
     @Override
