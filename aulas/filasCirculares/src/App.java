@@ -11,5 +11,7 @@ public class App {
         queue.enqueue(5);
         queue.dequeue();
         queue.enqueue(6);
+
+        System.out.println(queue);
     }
 }
