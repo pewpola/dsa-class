@@ -2,6 +2,18 @@ package collections;
 
 public class CircularLinkedQueue<E> implements Queue<E> {
 
+    class Node {
+        E value;
+        Node next;
+        
+        public Node(E value) {
+            this.value = value;
+        }
+    }
+
+    private Node first;
+    private int size;
+
     @Override
     public E dequeue() {
         // TODO Auto-generated method stub
