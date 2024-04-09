@@ -7,6 +7,7 @@ public class CircularStaticQueue<E> implements Queue<E> {
 
     private int size;
     private E[] queue;
+    private int first;
 
     @SuppressWarnings("unchecked")
     public CircularStaticQueue(int maxSize) {
@@ -19,16 +20,7 @@ public class CircularStaticQueue<E> implements Queue<E> {
             throw new EmptyQueueException("Queue is Empty");
         }
 
-        E removedElement = queue[0];
-
-        for (int i = 0; i < size - 1; i++) {
-            queue[i] = queue[i + 1];
-        }
-
-        queue[size - 1] = null;
-        size--;
-
-        return removedElement;
+        
     }
 
     @Override
@@ -37,13 +29,16 @@ public class CircularStaticQueue<E> implements Queue<E> {
             throw new FullQueueException("Queue is Full!");
         }
 
-        queue[size] = value;
+        queue[(first + size) % queue.length] = value;
         size++;
     }
 
     @Override
     public E first() {
-        return queue[0];
+        if (isEmpty()) {
+            throw new EmptyQueueException("Queue is Empty!");
+        }
+        return queue[first];
     }
 
     @Override
