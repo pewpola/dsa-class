@@ -1,5 +1,7 @@
 package collections;
 
+import exceptions.EmptyQueueException;
+
 public class CircularLinkedQueue<E> implements Queue<E> {
 
     class Node {
@@ -12,6 +14,7 @@ public class CircularLinkedQueue<E> implements Queue<E> {
     }
 
     private Node first;
+    private Node last;
     private int size;
 
     @Override
@@ -28,20 +31,21 @@ public class CircularLinkedQueue<E> implements Queue<E> {
 
     @Override
     public E first() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyQueueException("Queue is Empty!");
+        }
+
+        return first.value;
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return last == null;
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return size;
     }
        
 }
