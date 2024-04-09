@@ -34,7 +34,7 @@ public class CircularLinkedQueue<E> implements Queue<E> {
         }
 
         size--;
-        
+
         return value;
     }
 
@@ -71,6 +71,26 @@ public class CircularLinkedQueue<E> implements Queue<E> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+
+        Node auxNode = first;
+
+        for (int i = 0; i < size; i++) {
+            sb.append(auxNode.value);
+
+            if (i != size - 1) {
+                sb.append(", ");
+            }
+            auxNode = auxNode.next;
+        }
+
+        sb.append("]");
+        
+        return sb.toString();
     }
        
 }
