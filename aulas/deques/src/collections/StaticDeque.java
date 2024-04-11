@@ -24,14 +24,23 @@ public class StaticDeque<E> implements Deque<E> {
 
     @Override
     public E first() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new FullDequeException("Queue is Empty!");
+        }
+
+        return deque[first];
     }
 
     @Override
     public void insert(E value) {
-        // TODO Auto-generated method stub
+        if (isFull()) {
+            throw new FullDequeException("Queue is Empty!");
+        }
+
+        first = (first - 1 + deque.length) % deque.length;
+        deque[first] = value;
         
+        size++;
     }
 
     @Override
