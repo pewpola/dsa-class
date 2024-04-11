@@ -1,5 +1,7 @@
 package collections;
 
+import Exceptions.*;
+
 public class LinkedDeque<E> implements Deque<E> {
 
     class Node {
@@ -14,7 +16,7 @@ public class LinkedDeque<E> implements Deque<E> {
     private Node first;
     private Node last;
     private int size;
-    
+
     @Override
     public void add(E value) {
         // TODO Auto-generated method stub
@@ -23,8 +25,11 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public E first() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyDequeException("Queue is Empty!");
+        }
+
+        return first.value;
     }
 
     @Override
@@ -41,8 +46,11 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public E last() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new EmptyDequeException("Queue is Empty!");
+        }
+
+        return last.value;
     }
 
     @Override
@@ -59,8 +67,7 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return size;
     }
     
 }
