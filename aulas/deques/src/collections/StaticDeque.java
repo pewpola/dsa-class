@@ -25,7 +25,7 @@ public class StaticDeque<E> implements Deque<E> {
     @Override
     public E first() {
         if (isEmpty()) {
-            throw new FullDequeException("Queue is Empty!");
+            throw new EmptyDequeException("Queue is Empty!");
         }
 
         return deque[first];
@@ -55,7 +55,7 @@ public class StaticDeque<E> implements Deque<E> {
     @Override
     public E last() {
         if (isEmpty()) {
-            throw new FullDequeException("Queue is Empty!");
+            throw new EmptyDequeException("Queue is Empty!");
         }
 
         return deque[((first + size - 1) % deque.length)];
@@ -64,7 +64,7 @@ public class StaticDeque<E> implements Deque<E> {
     @Override
     public E removeFirst() {
         if (isEmpty()) {
-            throw new FullDequeException("Queue is Empty!");
+            throw new EmptyDequeException("Queue is Empty!");
         }
 
         E value = first();
@@ -78,7 +78,7 @@ public class StaticDeque<E> implements Deque<E> {
     @Override
     public E removeLast() {
         if (isEmpty()) {
-            throw new FullDequeException("Queue is Empty!");
+            throw new EmptyDequeException("Queue is Empty!");
         }
 
         E value = last();
