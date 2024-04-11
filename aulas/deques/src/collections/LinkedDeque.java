@@ -28,10 +28,12 @@ public class LinkedDeque<E> implements Deque<E> {
             last.next = newNode;
             newNode.previous = last; 
         }
-        
+
         last = newNode;
         last.next = first;
         first.previous = last;
+
+        size++;
     }
 
     @Override
@@ -45,7 +47,9 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public void insert(E value) {
-        // TODO Auto-generated method stub
+       if (isEmpty()) {
+
+       }
         
     }
 
