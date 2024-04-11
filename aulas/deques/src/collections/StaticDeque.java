@@ -45,8 +45,11 @@ public class StaticDeque<E> implements Deque<E> {
 
     @Override
     public E last() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new FullDequeException("Queue is Empty!");
+        }
+
+        return deque[((first + size - 1) % deque.length)];
     }
 
     @Override
