@@ -7,6 +7,7 @@ public class LinkedDeque<E> implements Deque<E> {
     class Node {
         E value;
         Node next;
+        Node previous;
         
         public Node(E value) {
             this.value = value;
