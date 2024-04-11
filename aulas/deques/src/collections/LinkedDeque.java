@@ -20,8 +20,18 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public void add(E value) {
-        // TODO Auto-generated method stub
+        Node newNode = new Node(value);
+
+        if (isEmpty()) {
+            first = newNode;
+        } else {
+            last.next = newNode;
+            newNode.previous = last; 
+        }
         
+        last = newNode;
+        last.next = first;
+        first.previous = last;
     }
 
     @Override
