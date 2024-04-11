@@ -1,19 +1,25 @@
 package collections;
 
+import Exceptions.*;
+
 public class StaticDeque<E> implements Deque<E> {
     private int size;
-    private E[] queue;
+    private E[] deque;
     private int first;
 
     @SuppressWarnings("unchecked")
     public StaticDeque(int maxSize) {
-        queue = (E[]) new Object[maxSize];
+        deque = (E[]) new Object[maxSize];
     }
 
     @Override
     public void add(E value) {
-        // TODO Auto-generated method stub
-        
+        if (isFull()) {
+            throw new FullDequeException("Queue is Full!");
+        }
+
+        deque[(first + size) % deque.length] = value;
+        size++;
     }
 
     @Override
@@ -30,8 +36,11 @@ public class StaticDeque<E> implements Deque<E> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == deque.length;
     }
 
     @Override
