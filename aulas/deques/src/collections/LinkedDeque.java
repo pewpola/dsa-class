@@ -47,10 +47,21 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public void insert(E value) {
-       if (isEmpty()) {
+        Node newNode = new Node(value);
 
-       }
+        if (isEmpty()) {
+            first = newNode;
+            last = newNode;
+        } else {
+            newNode.next = first;
+            first.previous = newNode;
+            first = newNode;
+        }
+
+        last.next = first;
+        first.previous = last;
         
+        size++;
     }
 
     @Override
