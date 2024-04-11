@@ -2,6 +2,19 @@ package collections;
 
 public class LinkedDeque<E> implements Deque<E> {
 
+    class Node {
+        E value;
+        Node next;
+        
+        public Node(E value) {
+            this.value = value;
+        }
+    }
+
+    private Node first;
+    private Node last;
+    private int size;
+    
     @Override
     public void add(E value) {
         // TODO Auto-generated method stub
