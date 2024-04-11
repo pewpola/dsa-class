@@ -41,8 +41,7 @@ public class LinkedDeque<E> implements Deque<E> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return size == 0;
     }
 
     @Override
