@@ -1,5 +1,7 @@
 package collections;
 
+import java.util.Comparator;
+
 public abstract class AbstractPriorityQueue<K,V> implements PriorityQueue<K,V> {
 
     class PriorityQueueEntry implements Entry<K,V> {
@@ -42,9 +44,18 @@ public abstract class AbstractPriorityQueue<K,V> implements PriorityQueue<K,V> {
         }
     }
 
+    private Comparator<K> comparator;
     protected int size;
     protected Node first;
     protected Node last;
+
+    public AbstractPriorityQueue() {
+        comparator = new DefaultComparator<>();
+    }
+
+    public int compare(Entry<K,V> e1, Entry<K,V> e2) {
+        return comparator.compare(e1.getKey(), e2.getKey());
+    }
 
     @Override
     public boolean isEmpty() {
