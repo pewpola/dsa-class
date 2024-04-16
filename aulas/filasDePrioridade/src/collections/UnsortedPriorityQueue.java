@@ -33,8 +33,11 @@ public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
 
     @Override
     public Entry<K, V> maxPriority() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is Empty!");
+        }
+
+        return findMaxPriorityNode().entry;
     }
 
     @Override
