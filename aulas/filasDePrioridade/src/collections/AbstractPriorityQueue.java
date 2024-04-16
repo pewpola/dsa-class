@@ -23,6 +23,20 @@ public abstract class AbstractPriorityQueue<K,V> implements PriorityQueue<K,V> {
         
     }
 
+    class Node {
+        Node next;
+        Node previous;
+        Entry<K,V> entry;
+
+        public Node(Entry<K,V> entry) {
+            this.entry = entry;
+        }
+
+        public Node(K key, V value) {
+            entry = new PriorityQueueEntry(key, value);
+        }
+    }
+
     protected int size;
 
     @Override
