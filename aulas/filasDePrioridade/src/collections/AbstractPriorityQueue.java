@@ -38,6 +38,8 @@ public abstract class AbstractPriorityQueue<K,V> implements PriorityQueue<K,V> {
     }
 
     protected int size;
+    protected Node first;
+    protected Node last;
 
     @Override
     public boolean isEmpty() {
