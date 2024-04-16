@@ -51,4 +51,17 @@ public abstract class AbstractPriorityQueue<K,V> implements PriorityQueue<K,V> {
         return size;
     }
     
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        Node auxNode = first;
+        while (auxNode != null) {
+            sb.append(auxNode.entry);
+            if (auxNode.next != null) {
+                sb.append(", ");
+            }
+            auxNode = auxNode.next;
+        }
+        return sb.append("]").toString();
+    }
 }
