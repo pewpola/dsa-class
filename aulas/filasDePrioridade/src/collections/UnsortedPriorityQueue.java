@@ -21,7 +21,7 @@ public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
         Node auxNode = last.previous;
 
         while (auxNode != null) {
-            int comp = compare(auxNode.entry, minNode.entry)
+            int comp = compare(auxNode.entry, minNode.entry);
             if (comp <= 0) {
                 minNode = auxNode;
             }
