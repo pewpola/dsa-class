@@ -16,6 +16,22 @@ public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
         size++;
     }
 
+    private Node findMaxPriorityNode() {
+        Node minNode = last;
+        Node auxNode = last.previous;
+
+        while (auxNode != null) {
+            /*
+            if (auxNode.entry.getKey() <= minNode.entry.getKey()) {
+                minNode = auxNode;
+            }
+            */
+            auxNode = auxNode.previous;
+        }
+
+        return null;
+    }
+
     @Override
     public Entry<K, V> maxPriority() {
         // TODO Auto-generated method stub
