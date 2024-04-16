@@ -21,11 +21,10 @@ public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
         Node auxNode = last.previous;
 
         while (auxNode != null) {
-            /*
-            if (auxNode.entry.getKey() <= minNode.entry.getKey()) {
+            int comp = compare(auxNode.entry, minNode.entry)
+            if (comp <= 0) {
                 minNode = auxNode;
             }
-            */
             auxNode = auxNode.previous;
         }
 
