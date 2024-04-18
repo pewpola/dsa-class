@@ -1,7 +1,5 @@
 package collections;
 
-import javax.management.RuntimeErrorException;
-
 public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
 
     @Override
@@ -55,15 +53,19 @@ public class UnsortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
             last = null;    
         } else {
             if (maxPriorityNode == first) {
-                System.out.println("Removendo o primeiro...");
+                first = first.next;
+                first.previous = null;
             } else if (maxPriorityNode == last) {
-                System.out.println("Removendo o último...");
+                last = last.previous;
+                last.next = null;
             } else {
-                System.out.println("Removendo sei lá quem...");
+                maxPriorityNode.next.previous = maxPriorityNode.previous;
+                maxPriorityNode.previous.next = maxPriorityNode.next;
             }
         }
 
-        return null;
+        size--;
+
+        return maxPriorityNode.entry;
     }
-    
 }
