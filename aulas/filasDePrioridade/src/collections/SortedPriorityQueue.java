@@ -10,8 +10,7 @@ public class SortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
 
     @Override
     public Entry<K, V> maxPriority() {
-        // TODO Auto-generated method stub
-        return null;
+        return first.entry;
     }
 
     @Override
