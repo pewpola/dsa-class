@@ -7,7 +7,7 @@ public class SortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
     public void insert(K key, V value) {
         Node newNode = new Node(key, value);
         
-        if (isEmpty() || ((Comparable<K>) key).compareTo(first.entry.getKey()) <= 0) {
+        if (isEmpty() || ((Comparable<K>) key).compareTo(first.entry.getKey()) < 0) {
             newNode.next = first;
 
             if (first != null) {
@@ -18,7 +18,7 @@ public class SortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
         } else {
             Node current = first;
 
-            while (current.next != null && ((Comparable<K>) key).compareTo(current.next.entry.getKey()) > 0) {
+            while (current.next != null && ((Comparable<K>) key).compareTo(current.next.entry.getKey()) >= 0) {
                 current = current.next;
             }
 
