@@ -15,7 +15,13 @@ public class SortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
 
     @Override
     public Entry<K, V> remove() {
-        // TODO Auto-generated method stub
-        return null;
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is Empty!");
+        }
+
+        first = first.next;
+        first.previous = null;
+
+        return first.entry;
     }
 }
