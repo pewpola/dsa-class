@@ -40,6 +40,10 @@ public class SortedPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
 
     @Override
     public Entry<K, V> maxPriority() {
+        if (isEmpty()) {
+            throw new RuntimeException("Queue is Empty!");
+        }
+        
         return first.entry;
     }
 
