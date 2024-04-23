@@ -4,8 +4,7 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
 
     @Override
     public void insert(K key, V value) {
-        // TODO Auto-generated method stub
-        super.insert(key, value);
+        
     }
 
     @Override

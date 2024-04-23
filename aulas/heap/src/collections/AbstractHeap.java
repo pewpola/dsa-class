@@ -35,10 +35,8 @@ public class AbstractHeap<K,V> implements PriorityQueue<K,V> {
         }
     }
 
-    public AbstractHeap(K key, V value) {
-        this.key = key;
-        this.value = value;
-    }
+    protected List<Entry<K,V>> heap;
+    private Comparator<K> comparator;
 
     @Override
     public void insert(K key, V value) {
@@ -63,9 +61,6 @@ public class AbstractHeap<K,V> implements PriorityQueue<K,V> {
         // TODO Auto-generated method stub
         return null;
     }
-
-    protected List<Entry<K,V>> heap;
-    private Comparator<K> comparator;
 
     public AbstractHeap() {
         heap = new ArrayList<>();
