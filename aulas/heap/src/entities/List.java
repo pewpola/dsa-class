@@ -11,5 +11,6 @@ public interface List<E> {
     E removeByIndex(int index) throws IndexOutOfBoundsException,EmptyListException;
     boolean isEmpty();
     E get(int index) throws IndexOutOfBoundsException;
-    void set(int index, E value) throws IndexOutOfBoundsException;  
+    void set(int index, E value) throws IndexOutOfBoundsException;
+    int size(); 
 }
