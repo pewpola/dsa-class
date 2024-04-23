@@ -1,5 +1,9 @@
 package collections;
 
+import java.util.Comparator;
+
+import entities.ArrayList;
+import entities.DefaultComparator;
 import entities.List;
 import entities.StaticList;
 
@@ -38,10 +42,24 @@ public class AbstractHeap<K,V> implements PriorityQueue<K,V> {
     }
 
     protected List<Entry<K,V>> heap;
+    private Comparator<K> comparator;
+
+    public AbstractHeap() {
+        heap = new ArrayList<>();
+        comparator = new DefaultComparator<>();
+    }
 
     @Override
     public int size() {
         return heap.size();
+    }
+
+    public int compare(int index1, int index2) {
+        return compare(heap.get(index1), heap.get(index2));
+    }
+
+    public int compare(Entry<K,V> e1, Entry<K,V> e2) {
+        return comparator.compare(e1.getKey(), e2.getKey());
     }
 
     @Override
