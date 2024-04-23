@@ -9,8 +9,31 @@ import entities.StaticList;
 
 public class AbstractHeap<K,V> implements PriorityQueue<K,V> {
 
-    K key;
-    V value;
+    class HeapEntry implements Entry<K,V> {
+
+        K key;
+        V value;        
+
+        public HeapEntry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + key + ":" + value + ")";
+        }
+    }
 
     public AbstractHeap(K key, V value) {
         this.key = key;
