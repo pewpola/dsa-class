@@ -44,7 +44,7 @@ public class StaticList<E> implements List<E>{
         
     }
 
-    private void checkIndex(int index, int referenceIndex){
+    private void checkIndex(int index, int referenceIndex) {
         if(index < 0 || index>=referenceIndex){
             throw new IndexOutOfBoundsException("Index "+index+" is not valid!");
         }
@@ -73,7 +73,7 @@ public class StaticList<E> implements List<E>{
         
     }
 
-    public boolean isFull(){
+    public boolean isFull() {
         return size == MAX_SIZE;
         // if(size == MAX_SIZE){
         //     return true;
@@ -83,7 +83,6 @@ public class StaticList<E> implements List<E>{
 
     @Override
     public boolean isEmpty() {
-        
         return size == 0;
     }
 
@@ -96,9 +95,11 @@ public class StaticList<E> implements List<E>{
 
 
         E value = staticList[index];
-        for(int i = index; i < size-1; i++){
+
+        for(int i = index; i < size-1; i++) {
             staticList[i] = staticList[i+1];
         }
+
         size--;
 
         return value;
@@ -129,7 +130,11 @@ public class StaticList<E> implements List<E>{
     public void set(int index, E value) throws IndexOutOfBoundsException {
         checkIndex(index, size);
         staticList[index] = value;
-        
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     @Override
@@ -147,7 +152,4 @@ public class StaticList<E> implements List<E>{
         
         return data + "]";
     }
-
-    
-    
 }
