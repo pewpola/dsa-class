@@ -1,5 +1,8 @@
 package collections;
 
+import entities.List;
+import entities.StaticList;
+
 public class AbstractHeap<K,V> implements PriorityQueue<K,V> {
 
     K key;
@@ -34,10 +37,11 @@ public class AbstractHeap<K,V> implements PriorityQueue<K,V> {
         return null;
     }
 
+    protected List<Entry<K,V>> heap;
+
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return heap.size();
     }
 
     @Override

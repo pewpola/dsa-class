@@ -35,7 +35,4 @@ public class ArrayList<E> extends StaticList<E> {
     public void insert(int index, E value) throws IndexOutOfBoundsException {        
         super.insert(index, value);
     }
-
-
-    
 }
