@@ -38,6 +38,51 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
 
     @Override
     public Entry<K, V> remove() {
+        if (isEmpty()) {
+            throw new RuntimeException("Heap is Empty");
+        }
+
+        Entry<K,V> entry;
+
+        if (size() == 1) {
+            entry = heap.removeLast();
+        } else {
+            entry = maxPriority();
+            heap.set(0, heap.removeLast());
+        }
+
         return null;
+    }
+
+    private int rightChild(int parent) {
+        return leftChild(parent) + 1;
+    }
+
+    private int leftChild(int parent) {
+        return parent * 2 + 1;
+    }
+
+    private void sinkDown() {
+        int current, min = 0;
+        int leftChild, rightChild;
+
+        do {
+            current = min;
+            leftChild = leftChild(current);
+            rightChild = rightChild(current);
+
+            if (leftChild < size() && compare(leftChild, min) == -1) {
+                min = leftChild;
+            }
+
+            if (rightChild < size() && compare(rightChild, min) == -1) {
+                min = leftChild;
+            }
+
+            if (current != min) {
+                swap(current, min);
+            }
+
+        } while (current != min);
     }
 }
