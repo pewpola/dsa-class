@@ -16,10 +16,12 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
         return heap.get(0);
     }
 
+    private int parent(int child) {
+        return (child - 1) / 2;
+    }
+
     @Override
     public Entry<K, V> remove() {
-        // TODO Auto-generated method stub
-        return super.remove();
+        return null;
     }
-    
 }
