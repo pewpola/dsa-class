@@ -4,7 +4,17 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
 
     @Override
     public void insert(K key, V value) {
-        
+        Entry<K,V> newEntry = new HeapEntry(key, value);
+        heap.add(newEntry);
+
+        int current = size() - 1;
+        int parent = parent(current);
+
+        while(current > 0 && compare(current, parent) == -1) {
+            swap(current, parent);
+            current = parent;
+            parent = parent(current);
+        }
     }
 
     private void swap(int index1, int index2) {
