@@ -49,9 +49,10 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
         } else {
             entry = maxPriority();
             heap.set(0, heap.removeLast());
+            sinkDown();
         }
 
-        return null;
+        return entry;
     }
 
     private int rightChild(int parent) {
