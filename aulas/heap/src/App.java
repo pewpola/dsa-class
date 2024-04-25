@@ -11,7 +11,8 @@ public class App {
         heap.insert(29, "Ian LW");
         heap.insert(39, "Lucas");
         heap.insert(1, "Davi");
-
+        System.out.println(heap);
+        System.out.println("Removido: " + heap.remove());
         System.out.println(heap);
     }
 }
