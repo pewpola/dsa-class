@@ -9,6 +9,36 @@ public class HashTable<K,V> implements Map<K,V> {
         hashTable = new Node[mapSize];
     }
 
+    public static int hashCode(String key) {
+        int hashCode = 0;
+        int a = 5;
+
+        for (int i = 0; i < key.length(); i++) {
+            hashCode = hashCode << a | hashCode >>> (32 - a);
+            hashCode += key.charAt(i);
+        }
+
+        return hashCode;
+    }
+
+    public int compression(int hashCode) {
+        int comp = hashCode % hashTable.length;
+
+        if (comp < 0) {
+            comp *= -1;
+        }
+
+        return comp;
+    }
+
+    public int hashFunction(K key) {
+        if (key instanceof String) {
+            
+        }
+
+        throw new RuntimeException("idjoqwiodhqdhq");
+    }
+
     @Override
     public Entry<K, V> delete(K key) {
         // TODO Auto-generated method stub
