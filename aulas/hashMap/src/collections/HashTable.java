@@ -33,10 +33,10 @@ public class HashTable<K,V> implements Map<K,V> {
 
     public int hashFunction(K key) {
         if (key instanceof String) {
-            
+            return compression(hashCode((String) key));
         }
 
-        throw new RuntimeException("idjoqwiodhqdhq");
+        throw new RuntimeException("Hash Function does not support that data type");
     }
 
     @Override
