@@ -59,7 +59,9 @@ public class HashTable<K,V> implements Map<K,V> {
 
     @Override
     public void put(K key, V value) {
-        // TODO Auto-generated method stub
+        int index = hashFunction(key);
+        Entry<K,V> entry = new HashEntry<>(key, value);
+        Node<Entry<K,V>> newNode = new Node(entry);
         
     }
 
