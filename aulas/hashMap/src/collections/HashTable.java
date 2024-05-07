@@ -53,8 +53,7 @@ public class HashTable<K,V> implements Map<K,V> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -73,8 +72,10 @@ public class HashTable<K,V> implements Map<K,V> {
                     auxNode.entry.setValue(value);
                     return;
                 }
+
                 auxNode = auxNode.next;
             }
+
             newNode.next = hashTable[index];
             hashTable[index].previous = newNode;
             hashTable[index] = newNode;
@@ -84,22 +85,28 @@ public class HashTable<K,V> implements Map<K,V> {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        return 0;
+        return size;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("");
-        
-        for (int i = 0; i < hashTable.length; i++) {
+
+        for(int i = 0; i < hashTable.length; i++) {
             sb.append(i);
             sb.append(":");
+
+            Node<Entry<K,V>> auxNode = hashTable[i];
+            while(auxNode!=null) {
+                sb.append("\n    ");
+                sb.append(auxNode.entry);
+
+                auxNode = auxNode.next;
+            }
 
             sb.append("\n");
         }
 
         return sb.toString();
-    }
-    
+    }    
 }
