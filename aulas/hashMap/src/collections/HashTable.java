@@ -62,7 +62,24 @@ public class HashTable<K,V> implements Map<K,V> {
         int index = hashFunction(key);
         Entry<K,V> entry = new HashEntry<>(key, value);
         Node<Entry<K,V>> newNode = new Node(entry);
-        
+
+        if(hashTable[index] == null) {
+            hashTable[index] = newNode;
+        } else {
+            Node<Entry<K,V>> auxNode = hashTable[index];
+          
+            while(auxNode!=null) {
+                if(auxNode.entry.getKey().equals(key)){
+                    auxNode.entry.setValue(value);
+                    return;
+                }
+                auxNode = auxNode.next;
+            }
+            newNode.next = hashTable[index];
+            hashTable[index].previous = newNode;
+            hashTable[index] = newNode;
+        }
+        size++;
     }
 
     @Override
