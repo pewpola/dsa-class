@@ -1,7 +1,22 @@
 package fila;
 
+import java.util.Scanner;
+
 public class Main {
-    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        DynamicQueue<Integer> queue = new DynamicQueue<>();
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            int p = sc.nextInt();
+            queue.enqueue(p);
+        }
+
+        System.out.println(queue);
+        sc.close();
+    }
 }
 
 
@@ -64,12 +79,10 @@ class DynamicQueue<E> implements Queue<E> {
 
         if (isEmpty()) {
             head = newNode;
-            tail = newNode;
         } else {
-            newNode.next = head;
-            head = newNode;
-        }
-
+            tail.next = newNode;
+        }        
+        tail = newNode;
         size++;
     }
 
