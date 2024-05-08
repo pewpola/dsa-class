@@ -5,6 +5,29 @@ public class Main {
     public static void main(String[] args) {
         
     }
+
+    public static int diamondsCounter(String line) {
+       StaticStack<Character> stack = new StaticStack<>(line.length());
+
+       int counter = 0;
+       char greater = '>';
+       char less = '<';
+
+       for (int i = 0; i < line.length(); i++) {
+        Character character = line.charAt(i);
+
+        if (character == greater) {
+            stack.push(character);
+        } else if (character == less) {
+            if (!stack.isEmpty() && stack.top() == greater) {
+                stack.pop();
+                counter++;
+            }
+        }
+       }
+
+       return counter;
+    }
 }
 
 interface Stack<E> {
