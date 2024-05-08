@@ -14,6 +14,8 @@ public class Main {
             queue.enqueue(p);
         }
 
+        // queue.getNodeByValue(2);
+
         // System.out.println(queue);
 
         int m = sc.nextInt();
@@ -62,6 +64,16 @@ class DynamicQueue<E> implements Queue<E> {
 
         return auxNode;
     }
+    
+    public Node getNodeByValue(E value) {
+        Node auxNode = head;
+        
+        while (auxNode.next != null && !auxNode.value.equals(value)) {
+            auxNode = auxNode.next;
+        }
+        
+        return auxNode;
+    }
 
     @Override
     public E dequeue() {
@@ -69,7 +81,7 @@ class DynamicQueue<E> implements Queue<E> {
             throw new EmptyQueueException("Linked List is Empty");
         }
 
-        E value = tail.value;
+        E value = head.value;
 
         if (size == 1) {
             head = null;
@@ -80,6 +92,34 @@ class DynamicQueue<E> implements Queue<E> {
         }
         size--;
         return value;
+    }
+
+    public E dequeueByValue(E value) {
+        if (isEmpty()) {
+            throw new EmptyQueueException("Linked List is Empty");
+        }
+
+        Node auxNode = getNodeByValue(value);
+
+        if (auxNode == null) throw new IllegalArgumentException("Value not found in the queue");
+
+        if (auxNode == head) {
+            dequeue();
+        } else if (auxNode == tail) {
+            if (size == 1) {
+                head = null;
+                tail =  null;
+            } else {
+                tail.previous = tail;
+                tail.next = null;
+            }
+        } else {
+            auxNode.previous.next = auxNode.next;
+            auxNode.next.previous = auxNode.previous;
+        }
+
+        size--;
+        return auxNode.value;
     }
 
     @Override
