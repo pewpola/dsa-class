@@ -94,6 +94,26 @@ class DynamicQueue<E> implements Queue<E> {
         return value;
     }
 
+    public E removeLast() {
+        if (isEmpty()) {
+            throw new EmptyQueueException("Linked List is Empty");
+        }
+
+        E value = tail.value;
+
+        if (size == 1) {
+            head = null;
+            tail = null;
+        } else {
+            tail = tail.previous;
+            tail.next = null;
+        }
+
+        size--;
+
+        return value;
+    }
+
     public E dequeueByValue(E value) {
         if (isEmpty()) {
             throw new EmptyQueueException("Linked List is Empty");
@@ -106,19 +126,14 @@ class DynamicQueue<E> implements Queue<E> {
         if (auxNode == head) {
             dequeue();
         } else if (auxNode == tail) {
-            if (size == 1) {
-                head = null;
-                tail =  null;
-            } else {
-                tail.previous = tail;
-                tail.next = null;
-            }
+            removeLast();
         } else {
             auxNode.previous.next = auxNode.next;
             auxNode.next.previous = auxNode.previous;
+
+            size--;
         }
 
-        size--;
         return auxNode.value;
     }
 
