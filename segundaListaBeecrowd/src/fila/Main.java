@@ -14,10 +14,13 @@ public class Main {
             queue.enqueue(p);
         }
 
+        // System.out.println(queue);
+
         int m = sc.nextInt();
 
         for (int i = 0; i < m; i++) {
             int r = sc.nextInt();
+            queue.dequeueByValue(r);
         }
 
         System.out.println(queue);
@@ -39,6 +42,7 @@ class DynamicQueue<E> implements Queue<E> {
     class Node {
         E value;
         Node next;
+        Node previous;
 
         public Node(E value) {
             this.value = value;
@@ -71,41 +75,11 @@ class DynamicQueue<E> implements Queue<E> {
             head = null;
             tail = null;
         } else {
-            Node auxNode = getNode(size - 2);
-            tail = auxNode;
-            tail.next = null;
+            head = head.next;
+            head.previous = null;
         }
         size--;
         return value;
-    }
-
-    public void dequeueByValue(E value) {
-        if (isEmpty()) {
-            throw new EmptyQueueException("Linked List is Empty");
-        }
-
-        Node current = head;
-        Node previous = null;
-
-        while (current != null && !current.value.equals(value)) {
-            previous = current;
-            current = current.next;
-        }
-
-        if (current == null) {
-            throw new RuntimeException("Value not found in the queue");
-        }
-
-        if (current == head) {
-            head = head.next;
-        } else {
-            previous.next = current.next;
-            if (current == tail) {
-                tail = previous;
-            }
-        }
-
-        size--;
     }
 
     @Override
@@ -116,6 +90,7 @@ class DynamicQueue<E> implements Queue<E> {
             head = newNode;
         } else {
             tail.next = newNode;
+            newNode.previous = tail;
         }        
         tail = newNode;
         size++;
