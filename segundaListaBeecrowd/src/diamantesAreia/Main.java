@@ -1,25 +1,33 @@
 package diamantesAreia;
 
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            String line = sc.next();
+            System.out.println(diamondsCounter(line));
+        }
+        sc.close();
     }
 
     public static int diamondsCounter(String line) {
        StaticStack<Character> stack = new StaticStack<>(line.length());
 
        int counter = 0;
-       char greater = '>';
        char less = '<';
+       char greater = '>';
 
        for (int i = 0; i < line.length(); i++) {
         Character character = line.charAt(i);
 
-        if (character == greater) {
+        if (character == less) {
             stack.push(character);
-        } else if (character == less) {
-            if (!stack.isEmpty() && stack.top() == greater) {
+        } else if (character == greater) {
+            if (!stack.isEmpty() && stack.top() == less) {
                 stack.pop();
                 counter++;
             }
