@@ -1,390 +1,205 @@
 package filaDoRecreio;
 
+import java.io.IOException;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class Main {
-    
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        int N = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < N; i++) {
+            int M = Integer.parseInt(scanner.nextLine());
+            String[] testLines = scanner.nextLine().split(" ");
+            PriorityQueue<Integer, Integer> queue = new HeapPriorityQueue<Integer, Integer>(M);
+            int counter = 0;
+            for (int j = 0; j < M; j++) {
+                int value = Integer.parseInt(testLines[j]);
+                queue.insert(value, value);
+
+            }
+
+            for (int j = 0; j < M; j++) {
+                Integer comparedValue = Integer.parseInt(testLines[j]);
+                if (queue.remove().getKey().compareTo(comparedValue) == 0) {
+                    counter++;
+                }
+            }
+            System.out.println(counter);
+
+        }
+        scanner.close();
+    }
 }
 
-abstract class AbstractHeap<K,V> implements PriorityQueue<K,V> {
+class DefaultComparator<Key> implements Comparator<Key> {
 
-    class HeapEntry implements Entry<K,V> {
+    @SuppressWarnings("unchecked")
+    @Override
+    public int compare(Key keyA, Key keyB) {
 
-        K key;
-        V value;        
+        return ((Comparable<Key>) keyA).compareTo(keyB);
+    }
 
-        public HeapEntry(K key, V value) {
+}
+
+interface Entry<Key, Value> {
+    Key getKey();
+
+    Value getValue();
+}
+
+interface PriorityQueue<Key, Value> {
+    void insert(Key key, Value value);
+
+    Entry<Key, Value> top();
+
+    Entry<Key, Value> remove();
+
+    int size();
+
+    boolean isEmpty();
+}
+
+class HeapPriorityQueue<Key, Value> implements PriorityQueue<Key, Value> {
+
+    class QueueEntry implements Entry<Key, Value> {
+        Key key;
+        Value value;
+
+        public QueueEntry(Key key, Value value) {
             this.key = key;
             this.value = value;
         }
 
         @Override
-        public K getKey() {
-            return key;
+        public Key getKey() {
+            return this.key;
         }
 
         @Override
-        public V getValue() {
-            return value;
+        public Value getValue() {
+            return this.value;
         }
 
         @Override
         public String toString() {
-            return "(" + key + ":" + value + ")";
-        }
-    }
-
-    protected List<Entry<K,V>> heap;
-    private Comparator<K> comparator;
-
-    public AbstractHeap() {
-        heap = new ArrayList<>();
-        comparator = new DefaultComparator<>();
-    }
-
-    public int compare(int index1, int index2){
-        return compare(heap.get(index1), heap.get(index2));
-    }
-
-    public int compare(Entry<K,V> e1, Entry<K,V> e2){
-        return comparator.compare(e1.getKey(), e2.getKey());
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return heap.isEmpty();
-    }
-
-    @Override
-    public int size() {        
-        return heap.size();
-    }
-
-    @Override
-    public String toString() {
-        return heap.toString();
-    }    
-}
-class Heap<K,V> extends AbstractHeap<K,V> {
-
-    @Override
-    public void insert(K key, V value) {
-        Entry<K,V> newEntry = new HeapEntry(key, value);
-        heap.add(newEntry);
-
-        int current = size() - 1;
-        int parent = parent(current);
-
-        while(current > 0 && compare(current, parent) == -1) {
-            swap(current, parent);
-            current = parent;
-            parent = parent(current);
-        }
-    }
-
-    private void swap(int index1, int index2) {
-        Entry<K,V> auxEntry = heap.get(index1);
-        heap.set(index1, heap.get(index2));
-        heap.set(index2, auxEntry);
-    }
-    
-    private int parent(int child) {
-        return (child - 1) / 2;
-    }
-    
-    @Override
-    public Entry<K, V> maxPriority() {
-        if (isEmpty()) {
-            throw new RuntimeException("Heap is Empty!");
-        }
-    
-        return heap.get(0);
-    }
-
-    @Override
-    public Entry<K, V> remove() {
-        if (isEmpty()) {
-            throw new RuntimeException("Heap is Empty");
+            return "(" + key + " - " + value + ")";
         }
 
-        Entry<K,V> entry;
-
-        if (size() == 1) {
-            entry = heap.removeLast();
-        } else {
-            entry = maxPriority();
-            heap.set(0, heap.removeLast());
-            sinkDown();
-        }
-
-        return entry;
     }
 
-    private int rightChild(int parent) {
-        return leftChild(parent) + 1;
-    }
-
-    private int leftChild(int parent) {
-        return parent * 2 + 1;
-    }
-
-    private void sinkDown() {
-        int current, min = 0;
-        int leftChild, rightChild;
-
-        do {
-            current = min;
-            leftChild = leftChild(current);
-            rightChild = rightChild(current);
-
-            if (leftChild < size() && compare(leftChild, min) == -1) {
-                min = leftChild;
-            }
-
-            if (rightChild < size() && compare(rightChild, min) == -1) {
-                min = leftChild;
-            }
-
-            if (current != min) {
-                swap(current, min);
-            }
-
-        } while (current != min);
-    }
-}
-
-interface Entry<K,V> {
-    K getKey();
-    V getValue();
-}
-
-interface PriorityQueue<K,V> {
-    void insert(K key, V value);
-    Entry<K,V> maxPriority();
-    Entry<K,V> remove();
-    int size();
-    boolean isEmpty();
-}
-
-class StaticList<E> implements List<E>{
-
+    private Comparator<Key> comparator;
     protected int size;
-    protected E[] staticList;
-    private final int MAX_SIZE = 5;
+    protected Entry<Key, Value>[] heap;
 
     @SuppressWarnings("unchecked")
-    public StaticList(){
-        staticList = (E[])new Object[MAX_SIZE];
-        
+    public HeapPriorityQueue(int capacity) {
+        this.comparator = new DefaultComparator<>();
+        this.heap = (Entry<Key, Value>[]) new Entry[capacity];
+        this.size = 0;
+
     }
 
     @Override
-    public void add(E value) {
-        if(isFull()){
-            throw new FullListException("Static List is Full!");
-        }
-        staticList[size] = value;
-        size++;            
-    }
-
-    @Override
-    public E get(int index) throws IndexOutOfBoundsException {
-        checkIndex(index, size);
-        return staticList[index];
-    }
-
-    @Override
-    public void insert(E value) {
-        if(isFull()){
-            throw new FullListException("Static List is Full!");
-        }
-
-        for(int i = size ; i > 0 ; i--){
-            staticList[i] = staticList[i-1];
-        }
-        staticList[0] = value;
-        size++;
-        
-    }
-
-    private void checkIndex(int index, int referenceIndex) {
-        if(index < 0 || index>=referenceIndex){
-            throw new IndexOutOfBoundsException("Index "+index+" is not valid!");
+    public void insert(Key key, Value value) {
+        if (isFull())
+            throw new Error("Queue is full");
+        Entry<Key, Value> newEntry = new QueueEntry(key, value);
+        int index = size();
+        heap[index] = newEntry;
+        this.size++;
+        while (index != 0 && comparator.compare(heap[index].getKey(), heap[parent(index)].getKey()) > 0) {
+            swap(parent(index), index);
+            index = parent(index);
         }
     }
 
     @Override
-    public void insert(int index, E value) throws IndexOutOfBoundsException {
-        if(isFull()){
-            throw new FullListException("Static List is Full!");
-        }
-
-        checkIndex(index,MAX_SIZE);
-
-        if(index>=size){
-            add(value);
-        }else{
-
-            for(int i = size ; i > index ; i--){
-                staticList[i] = staticList[i-1];
-            }
-            staticList[index] = value;
-            size++;
-
-        }
-
-        
+    public Entry<Key, Value> top() {
+        if (isEmpty())
+            throw new Error("Empty queue");
+        return heap[0];
     }
 
-    public boolean isFull() {
-        return size == MAX_SIZE;
-        // if(size == MAX_SIZE){
-        //     return true;
-        // }
-        // return false;
+    public Entry<Key, Value> remove() {
+        if (isEmpty())
+            throw new Error("Empty queue");
+
+        Entry<Key, Value> root = heap[0];
+        heap[0] = heap[size() - 1];
+        this.size--;
+        maxHeapify(0);
+        return root;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
+    private void maxHeapify(int index) {
+        int largest = index;
+        int leftChildPosition = leftChild(index);
+        int rightChildPosition = rightChild(index);
 
-    @Override
-    public E removeByIndex(int index) throws IndexOutOfBoundsException, EmptyListException {
-        if(isEmpty()){
-            throw new EmptyListException("Static List is Empty");
+        if (leftChildPosition < size() &&
+                comparator.compare(heap[leftChildPosition].getKey(), heap[largest].getKey()) > 0) {
+            largest = leftChildPosition;
         }
-        checkIndex(index, size);
-
-
-        E value = staticList[index];
-
-        for(int i = index; i < size-1; i++) {
-            staticList[i] = staticList[i+1];
+        if (rightChildPosition < size() &&
+                comparator.compare(heap[rightChildPosition].getKey(), heap[largest].getKey()) > 0) {
+            largest = rightChildPosition;
         }
 
-        size--;
-
-        return value;
-    }
-
-    @Override
-    public E removeFirst() throws EmptyListException {
-        if(isEmpty()){
-            throw new EmptyListException("Static List is Empty");
+        if (largest != index) {
+            swap(index, largest);
+            maxHeapify(largest);
         }
-        E value = staticList[0];
-        for(int i = 0; i < size-1;i++){
-            staticList[i] = staticList[i+1];
-        }
-        size--;
-        return value;
-    }
-
-    @Override
-    public E removeLast() throws EmptyListException {
-        if(isEmpty()){
-            throw new EmptyListException("Static List is Empty");
-        }
-        return staticList[--size];
-    }
-
-    @Override
-    public void set(int index, E value) throws IndexOutOfBoundsException {
-        checkIndex(index, size);
-        staticList[index] = value;
     }
 
     @Override
     public int size() {
-        return size;
+        return this.size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public boolean isFull() {
+        return this.heap.length == size();
+    }
+
+    private int leftChild(int i) {
+        return 2 * i + 1;
+    }
+
+    private int rightChild(int i) {
+        return 2 * i + 2;
+    }
+
+    private int parent(int i) {
+        return (i - 1) / 2;
+    }
+
+    private void swap(int i, int j) {
+        Entry<Key, Value> temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
+
     }
 
     @Override
     public String toString() {
-        String data = "[";
-        
-        for(int i = 0; i < size; i++){
-            if(i==size-1){
-                data = data + staticList[i];
-            }else{
-                data = data + staticList[i]+", ";
-
+        StringBuilder s = new StringBuilder();
+        s.append("[");
+        for (int i = 0; i < size(); i++) {
+            if (i == size() - 1) {
+                s.append(heap[i]);
+            } else {
+                s.append(heap[i]);
+                s.append(", ");
             }
         }
-        
-        return data + "]";
-    }
-}
-
-class ArrayList<E> extends StaticList<E> {
-    @SuppressWarnings("unchecked")
-    public ArrayList(){
-        staticList = (E[]) new Object[10];
-    }
-    
-    @SuppressWarnings("unchecked")
-    private void recreateStaticList(){
-      
-        E[] newStaticList = (E[])new Object[(staticList.length*3)/2+1];
-        for(int i = 0; i < size; i++){
-            newStaticList[i] = staticList[i];
-        }
-        staticList = newStaticList;
-    }
-
-    @Override
-    public void add(E value) {
-        if(size == staticList.length){
-            recreateStaticList();
-        }
-
-        staticList[size] = value;
-        size++;   
-    }
-
-    @Override
-    public void insert(E value) {        
-        super.insert(value);
-    }
-
-    @Override
-    public void insert(int index, E value) throws IndexOutOfBoundsException {        
-        super.insert(index, value);
-    }
-}
-
-interface List<E> {
-    void add(E value);
-    void insert(E value);
-    void insert(int index, E value) throws IndexOutOfBoundsException;
-    E removeLast() throws EmptyListException ;
-    E removeFirst() throws EmptyListException;
-    E removeByIndex(int index) throws IndexOutOfBoundsException,EmptyListException;
-    boolean isEmpty();
-    E get(int index) throws IndexOutOfBoundsException;
-    void set(int index, E value) throws IndexOutOfBoundsException;
-    int size(); 
-}
-
-
-class DefaultComparator<E> implements Comparator<E>{
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public int compare(E o1, E o2) {
-        return ((Comparable<E>) o1).compareTo(o2);
-    }
-}
-
-class EmptyListException extends RuntimeException {
-    public EmptyListException(String errorMessage){
-        super(errorMessage);
-    }
-}
-
-class FullListException extends RuntimeException {
-    public FullListException(String errorMessage){
-        super(errorMessage);
+        s.append("]");
+        return s.toString();
     }
 }
