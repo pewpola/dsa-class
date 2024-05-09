@@ -116,13 +116,14 @@ class DynamicQueue<E> implements Queue<E> {
 
     public E dequeueByValue(E value) {
         if (isEmpty()) {
-            throw new EmptyQueueException("Linked List is Empty");
+            throw new EmptyQueueException("Queue is Empty!");
         }
-
+    
         Node auxNode = getNodeByValue(value);
-
-        if (auxNode == null) throw new IllegalArgumentException("Value not found in the queue");
-
+    
+        if (auxNode == null) 
+            throw new IllegalArgumentException("Value not found in the queue");
+    
         if (auxNode == head) {
             dequeue();
         } else if (auxNode == tail) {
@@ -130,10 +131,10 @@ class DynamicQueue<E> implements Queue<E> {
         } else {
             auxNode.previous.next = auxNode.next;
             auxNode.next.previous = auxNode.previous;
-
+    
             size--;
         }
-
+    
         return auxNode.value;
     }
 
