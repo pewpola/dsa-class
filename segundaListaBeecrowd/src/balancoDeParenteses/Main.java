@@ -1,7 +1,47 @@
 package balancoDeParenteses;
 
+import java.util.Scanner;
+
 public class Main {
-    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        String line = "a+(b*c)-2-a";
+
+        System.out.println(parenthesesChecker(line));
+
+        System.out.println(parenthesesChecker("(a*b-(2+c)"));
+
+        sc.close();
+    }
+
+    public static String parenthesesChecker(String line) {
+        StaticStack<Character> stack = new StaticStack<>(line.length());
+
+        char open = '(';
+        char close = ')';
+
+        for (int i = 0; i < line.length(); i++) {
+            Character character = line.charAt(i);
+
+            if (character == open) {
+                stack.push(character);
+            } else if (character == close) {
+                if (!stack.isEmpty() && stack.top() == open) {
+                    stack.pop();
+                } else {
+                    return "incorrect";
+                }
+            }
+            
+        }
+
+        if (stack.isEmpty()) {
+            return "correct";
+        } else {
+            return "incorrect";
+        }
+    }
 }
 
 interface Stack<E> {
