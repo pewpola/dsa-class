@@ -7,14 +7,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
-            String line = sc.next();
+            String line = sc.nextLine();
 
-            if (line.isEmpty()) break;
-            
-            System.out.println(parenthesesChecker(line));
+            if (line.isEmpty())
+                break;
+                
+            System.out.println(parenthesesChecker(line.trim()));
         }
-        sc.close();
-
         sc.close();
     }
 
