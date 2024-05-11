@@ -77,7 +77,7 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
             }
 
             if (rightChild < size() && compare(rightChild, min) == -1) {
-                min = leftChild;
+                min = rightChild;
             }
 
             if (current != min) {
