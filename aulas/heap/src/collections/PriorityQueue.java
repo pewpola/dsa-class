@@ -6,4 +6,5 @@ public interface PriorityQueue<K,V> {
     Entry<K,V> remove();
     int size();
     boolean isEmpty();
+    boolean contains(V value);
 }
