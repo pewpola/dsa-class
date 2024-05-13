@@ -7,4 +7,8 @@ public interface PriorityQueue<K,V> {
     int size();
     boolean isEmpty();
     boolean contains(V value);
+    boolean containsByKey(K key);
+    boolean containsByEntry(K key, V value);
+    void updateValue(K key, V value, V newValue);
+    void updateKey(K key, V value, K newKey);
 }
