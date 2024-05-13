@@ -36,6 +36,7 @@ public class Heap<K,V> extends AbstractHeap<K,V> {
         return heap.get(0);
     }
 
+    @Override
     public boolean contains(V value) {
         for (int i = 0; i < size(); i++) {
             Entry<K, V> auxEntry = heap.get(i);
