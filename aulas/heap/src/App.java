@@ -12,7 +12,9 @@ public class App {
         heap.insert(39, "Lucas");
         heap.insert(1, "Davi");
         System.out.println(heap);
+        System.out.println(heap.maxPriority());
         System.out.println("Removido: " + heap.remove());
         System.out.println(heap);
+        System.out.println(heap.maxPriority());
     }
 }
