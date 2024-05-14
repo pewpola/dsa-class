@@ -10,5 +10,4 @@ public interface PriorityQueue<K,V> {
     boolean containsByKey(K key);
     boolean containsByEntry(K key, V value);
     void updateValue(K key, V value, V newValue);
-    void updateKey(K key, V value, K newKey);
 }
