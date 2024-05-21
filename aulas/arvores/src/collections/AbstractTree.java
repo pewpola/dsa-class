@@ -46,7 +46,7 @@ public class AbstractTree<E> implements Tree<E> {
 
     @Override
     public boolean isEmpty() {
-        return root = null;
+        return root == null;
     }
 
     @Override
