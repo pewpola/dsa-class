@@ -31,6 +31,10 @@ public class AbstractTree<E> implements Tree<E> {
         return comparator.compare(n1.value, n2.value);
     }
 
+    public int compare(E v1, Node n2) {
+        return comparator.compare(v1, n2.value);
+    }
+
     @Override
     public boolean contains(E value) {
         // TODO Auto-generated method stub
