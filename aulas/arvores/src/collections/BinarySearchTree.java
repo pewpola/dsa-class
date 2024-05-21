@@ -2,10 +2,29 @@ package collections;
 
 public class BinarySearchTree<E> extends AbstractTree<E> {
 
+    private Node getNodeByValue(E value) {
+        if (isEmpty()) {
+            throw new RuntimeException("Tree is empty");
+        }
+
+        Node auxNode = root;
+
+        while (auxNode != null) {
+            if (compare(value, auxNode) == 0) {
+                return auxNode;
+            } else if (compare(value, auxNode) > 0) {
+                auxNode = auxNode.right;
+            } else {
+                auxNode = auxNode.left;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public boolean contains(E value) {
-        // TODO Auto-generated method stub
-        return super.contains(value);
+        return getNodeByValue(value) != null;
     }
 
     @Override
