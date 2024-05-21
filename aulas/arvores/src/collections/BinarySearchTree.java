@@ -24,9 +24,25 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
             Node auxNode = root;
 
             while (true) {
-                
+                if (compare(newNode, auxNode) == 0) {
+                    return;
+                } else if (compare(newNode, auxNode) > 0) {
+                    if (auxNode.right == null) {
+                        auxNode.right = newNode;
+                        break;
+                    }
+                    auxNode = auxNode.right;
+                } else { 
+                    if (auxNode.left == null) {
+                        auxNode.left = newNode;
+                        break;
+                    }
+                    auxNode = auxNode.left;
+                }
             }
         }
+
+        size++;
     }
 
     @Override
