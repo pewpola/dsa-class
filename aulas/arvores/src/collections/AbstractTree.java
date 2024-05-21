@@ -12,6 +12,11 @@ public class AbstractTree<E> implements Tree<E> {
         public Node(E value) {
             this.value = value;
         }
+
+        @Override
+        public String toString() {
+            return "value = " + value;
+        }
     }
 
     protected Node root;
@@ -58,6 +63,11 @@ public class AbstractTree<E> implements Tree<E> {
     public void treeTraversal() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public String toString() {
+        return "BinarySearchTree []";
     }
 
 }
