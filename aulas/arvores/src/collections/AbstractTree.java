@@ -18,6 +18,14 @@ public class AbstractTree<E> implements Tree<E> {
     protected int size;
     protected Comparator<E> comparator;
 
+    public AbstractTree() {
+        comparator = new DefaultComparator<>();
+    }
+
+    public int compare(Node n1, Node n2) {
+        return comparator.compare(n1.value, n2.value);
+    }
+
     @Override
     public boolean contains(E value) {
         // TODO Auto-generated method stub
@@ -38,10 +46,7 @@ public class AbstractTree<E> implements Tree<E> {
 
     @Override
     public boolean isEmpty() {
-        if (root == null) {
-            return true;
-        }
-        return false;
+        return root = null;
     }
 
     @Override
