@@ -27,10 +27,84 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         return getNodeByValue(value) != null;
     }
 
+    private E removeMinNode(Node parent) {
+        Node minNode = parent.right;
+
+        while (minNode.left != null) {
+            parent = minNode;
+            minNode = minNode.left;
+        }
+
+        if (minNode.right != null) {
+            if (parent.left == minNode) {
+                parent.left = minNode.right;
+            } else {
+                parent.right = minNode.right;
+            }
+        } else {
+            if (parent.left == minNode) {
+                parent.left = null;
+            } else {
+                parent.right = null;
+            }
+        }
+        
+        return minNode.value;
+    }
+
     @Override
     public E delete(E value) {
-        // TODO Auto-generated method stub
-        return super.delete(value);
+        if (isEmpty()) {
+            throw new RuntimeException("Tree is empty");
+        }
+
+        Node parent = null;
+        Node target = root;
+
+        while (target != null && compare(value, target) != 0) {
+            parent = target;
+            if (compare(value, target) > 0) {
+                parent = target;
+                target = target.right;
+            } else {
+                target = target.left;
+            }
+        }
+
+        if (target == null) {
+            return null;
+        }
+
+        if (target.left == null && target.right == null) {
+            // folha
+            if (target == root) {
+                root = null;
+            } else {
+                if (parent.left == target) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+            }
+        } else if (target.left != null && target.right != null) {
+            target.value = removeMinNode(target);
+        } else {
+            // tem um filho
+            Node child = target.left != null ? target.left : target.right;
+
+            if (target == root) {
+                root = child;
+            } else {
+                if (parent.left == target) {
+                    parent.left = child;
+                } else {
+                    parent.right = child;
+                }
+            }
+        }
+        size--;
+        return target.value;
+
     }
 
     @Override
@@ -51,7 +125,7 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
                         break;
                     }
                     auxNode = auxNode.right;
-                } else { 
+                } else {
                     if (auxNode.left == null) {
                         auxNode.left = newNode;
                         break;
@@ -69,5 +143,5 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         // TODO Auto-generated method stub
         super.treeTraversal();
     }
-    
+
 }
