@@ -56,8 +56,14 @@ public class RecursiveBinarySearchTree<E> extends AbstractTree<E> {
 
     @Override
     public E delete(E value) {
-        // TODO Auto-generated method stub
-        return super.delete(value);
+        int previousSize = size;
+        root = delete(value, root);
+        
+        if (previousSize != size) {
+            return value;
+        }
+        
+        return null;
     }
 
     private Node insert(E value, Node current) {
