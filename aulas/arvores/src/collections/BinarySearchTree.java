@@ -140,8 +140,25 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
 
     @Override
     public void treeTraversal() {
-        // TODO Auto-generated method stub
-        super.treeTraversal();
+        DynamicQueue<Node> queue = new DynamicQueue<>();
+
+        if (root == null) {
+            queue.enqueue(root);
+        }
+
+        while (!queue.isEmpty()) {
+            Node current = queue.dequeue();
+            System.out.println(current.value + " ");
+            if (current.left != null) {
+                queue.enqueue(current.left);
+            }
+
+            if (current.right != null) {
+                queue.enqueue(current.right);
+            }
+        }
+
+        System.out.println();
     }
 
     @Override
