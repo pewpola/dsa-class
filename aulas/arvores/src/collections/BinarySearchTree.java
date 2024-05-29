@@ -144,4 +144,8 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         super.treeTraversal();
     }
 
+    @Override
+    public String toString() {
+        return "BinarySeachTree []";
+    }
 }
