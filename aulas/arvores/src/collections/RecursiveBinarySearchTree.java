@@ -92,10 +92,27 @@ public class RecursiveBinarySearchTree<E> extends AbstractTree<E> {
         return super.toString();
     }
 
+    private void preOrder(Node current) {
+        if (current != null) {
+            System.out.println(current.value + " ");
+            preOrder(current.left);
+            preOrder(current.right);
+        }
+    }
+
     @Override
     public void treeTraversal() {
-        // TODO Auto-generated method stub
-        super.treeTraversal();
+        preOrder(root);
+    }
+
+    public void treeTraversal(String type) {
+        if (type.equals("postOrder")) {
+            
+        } else if (type.equals("inOrder")) {
+
+        } else {
+            treeTraversal();
+        }
     }
 
 }
