@@ -1,22 +1,25 @@
 package collections;
 
-import java.util.*;
+import java.util.Comparator;
 
-public class AbstractTree<E> implements Tree<E> {
+public abstract class AbstractTree<E> implements Tree<E> {
 
     class Node {
-        E value;
         Node left;
         Node right;
+        int height;
+        E value;
 
         public Node(E value) {
             this.value = value;
+            height = 1;
         }
 
         @Override
         public String toString() {
-            return "value = " + value;
+            return "Value: " + value + " Height: " + height;
         }
+
     }
 
     protected Node root;
@@ -25,6 +28,10 @@ public class AbstractTree<E> implements Tree<E> {
 
     public AbstractTree() {
         comparator = new DefaultComparator<>();
+    }
+
+    public int compare(E v1, E v2) {
+        return comparator.compare(v1, v2);
     }
 
     public int compare(Node n1, Node n2) {
@@ -36,24 +43,6 @@ public class AbstractTree<E> implements Tree<E> {
     }
 
     @Override
-    public boolean contains(E value) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public E delete(E value) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void insert(E value) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public boolean isEmpty() {
         return root == null;
     }
@@ -61,17 +50,6 @@ public class AbstractTree<E> implements Tree<E> {
     @Override
     public int size() {
         return size;
-    }
-
-    @Override
-    public void treeTraversal() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public String toString() {
-        return "BinarySearchTree []";
     }
 
 }
