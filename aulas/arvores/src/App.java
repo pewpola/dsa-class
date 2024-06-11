@@ -5,7 +5,11 @@ public class App {
         AVLTree<Integer> avl = new AVLTree<>();
 
         avl.insert(37);
+        avl.insert(25);
+        System.out.println(avl);
         System.out.println(avl.height());
+        System.out.println(avl.contains(37));
+        System.out.println(avl.contains(25));
         // bst.insert(60);
         // bst.insert(30);
         // bst.insert(90);
