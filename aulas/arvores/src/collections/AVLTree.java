@@ -9,10 +9,11 @@ public class AVLTree<E> extends AbstractTree<E> {
             return b;
         }
     }
-    
-    private void updateHeight(Node current){
-        current.height = 1+max(height(current.left), height(current.right));
+
+    private void updateHeight(Node current) {
+        current.height = 1 + max(height(current.left), height(current.right));
     }
+
     private int height(Node current) {
         if (current == null) {
             return 0;
@@ -20,22 +21,35 @@ public class AVLTree<E> extends AbstractTree<E> {
         return current.height;
     }
 
+    private Node contains(E value, Node current) {
+        if (current == null) {
+            return null;
+        }
+
+        int cmp = compare(value, current);
+        if (cmp < 0) {
+            return contains(value, current.left);
+        } else if (cmp > 0) {
+            return contains(value, current.right);
+        } else {
+            return current;
+        }
+    }
+
+    @Override
+    public boolean contains(E value) {
+        return contains(value, root) != null;
+    }
+
     public int height() {
         return height(root);
     }
 
     @Override
-    public boolean contains(E value) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    
-    @Override
     public E delete(E value) {
         // TODO Auto-generated method stub
         return null;
     }
-
 
     @Override
     public void insert(E value) {
@@ -51,7 +65,7 @@ public class AVLTree<E> extends AbstractTree<E> {
         updateHeight(y);
         return y;
     }
-    
+
     private Node leftRotation(Node x) {
         Node y = x.right;
         Node T2 = y.left;
@@ -62,7 +76,7 @@ public class AVLTree<E> extends AbstractTree<E> {
         return y;
     }
 
-    private Node balance(Node current){
+    private Node balance(Node current) {
         int difference1 = height(current.right) - height(current.left);
         if (difference1 > 1) {
             System.out.println("Desbalanceado - Direita");
@@ -87,7 +101,6 @@ public class AVLTree<E> extends AbstractTree<E> {
         return current;
     }
 
-
     private Node insert(E value, Node current) {
         if (current == null) {
             size++;
@@ -98,9 +111,9 @@ public class AVLTree<E> extends AbstractTree<E> {
         } else if (compare(value, current) > 0) {
             current.right = insert(value, current.right);
         }
-        //atualiza a altura
+        // atualiza a altura
         updateHeight(current);
-        current = balance(current);        
+        current = balance(current);
         return current;
     }
 
