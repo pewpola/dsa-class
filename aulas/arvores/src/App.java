@@ -6,16 +6,17 @@ public class App {
         // AVLTree<Integer> avl = new AVLTree<>();
         RecursiveBinarySearchTree<Integer> bst = new RecursiveBinarySearchTree<>();
         
-        bst.insert(44);
-        bst.insert(25);
-        bst.insert(22);
+        bst.insert(47);
+        bst.insert(30);
         bst.insert(89);
-        bst.insert(33);
-        bst.insert(98);
-        bst.insert(29);
+        bst.insert(8);
+        bst.insert(38);
+        bst.insert(5);
+        bst.insert(61);
+        bst.insert(100);
         bst.treeTraversal();
-        bst.delete(33);
-        bst.treeTraversal();
+        // bst.delete(8);
+        // bst.treeTraversal();
         // System.out.println(avl);
         // System.out.println(avl.height());
         // System.out.println(avl.contains(37));
