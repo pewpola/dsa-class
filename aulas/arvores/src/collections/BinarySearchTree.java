@@ -2,34 +2,19 @@ package collections;
 
 public class BinarySearchTree<E> extends AbstractTree<E> {
 
-    private Node getNodeByValue(E value) {
-        if (isEmpty()) {
-            throw new RuntimeException("Tree is empty");
-        }
-
-        Node auxNode = root;
-
-        while (auxNode != null) {
-            if (compare(value, auxNode) == 0) {
-                return auxNode;
-            } else if (compare(value, auxNode) > 0) {
-                auxNode = auxNode.right;
-            } else {
-                auxNode = auxNode.left;
-            }
-        }
-
-        return null;
+    public void clear() {
+        root = null;
+        size = 0;
     }
 
     @Override
     public boolean contains(E value) {
-        return getNodeByValue(value) != null;
+        // TODO Auto-generated method stub
+        return false;
     }
 
     private E removeMinNode(Node parent) {
         Node minNode = parent.right;
-
         while (minNode.left != null) {
             parent = minNode;
             minNode = minNode.left;
@@ -48,23 +33,20 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
                 parent.right = null;
             }
         }
-        
         return minNode.value;
     }
 
     @Override
     public E delete(E value) {
         if (isEmpty()) {
-            throw new RuntimeException("Tree is empty");
+            throw new RuntimeException("Tree is empty!");
         }
+        Node target = root, parent = null;
 
-        Node parent = null;
-        Node target = root;
-
+        // buscar o nó
         while (target != null && compare(value, target) != 0) {
             parent = target;
             if (compare(value, target) > 0) {
-                parent = target;
                 target = target.right;
             } else {
                 target = target.left;
@@ -76,7 +58,6 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         }
 
         if (target.left == null && target.right == null) {
-            // folha
             if (target == root) {
                 root = null;
             } else {
@@ -89,7 +70,6 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         } else if (target.left != null && target.right != null) {
             target.value = removeMinNode(target);
         } else {
-            // tem um filho
             Node child = target.left != null ? target.left : target.right;
 
             if (target == root) {
@@ -104,21 +84,27 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         }
         size--;
         return target.value;
+    }
 
+    public E get(E value) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public void insert(E value) {
         Node newNode = new Node(value);
-
         if (isEmpty()) {
             root = newNode;
         } else {
             Node auxNode = root;
-
             while (true) {
-                if (compare(newNode, auxNode) == 0) {
-                    return;
+                if (compare(newNode, auxNode) < 0) {
+                    if (auxNode.left == null) {
+                        auxNode.left = newNode;
+                        break;
+                    }
+                    auxNode = auxNode.left;
                 } else if (compare(newNode, auxNode) > 0) {
                     if (auxNode.right == null) {
                         auxNode.right = newNode;
@@ -126,29 +112,24 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
                     }
                     auxNode = auxNode.right;
                 } else {
-                    if (auxNode.left == null) {
-                        auxNode.left = newNode;
-                        break;
-                    }
-                    auxNode = auxNode.left;
+                    return;
                 }
             }
         }
-
         size++;
     }
 
-    @Override
-    public void treeTraversal() {
-        DynamicQueue<Node> queue = new DynamicQueue<>();
-
-        if (root == null) {
+    private void preOrder() {
+        Queue<Node> queue = new DynamicQueue<>();
+        if (root != null) {
             queue.enqueue(root);
         }
 
-        while (!queue.isEmpty()) {
+        while (queue.size() != 0) {
             Node current = queue.dequeue();
-            System.out.println(current.value + " ");
+
+            System.out.print(current.value + " ");
+
             if (current.left != null) {
                 queue.enqueue(current.left);
             }
@@ -157,12 +138,69 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
                 queue.enqueue(current.right);
             }
         }
+    }
 
-        System.out.println();
+    private void postOrder() {
+        Queue<Node> queue = new DynamicQueue<>();
+        if (root != null) {
+            queue.enqueue(root);
+        }
+
+        while (queue.size() != 0) {
+            Node current = queue.dequeue();
+
+            if (current.left != null) {
+                queue.enqueue(current.left);
+            }
+
+            if (current.right != null) {
+                queue.enqueue(current.right);
+            }
+
+            System.out.print(current.value + " ");
+        }
+    }
+
+    private void inOrder() {
+        Queue<Node> queue = new DynamicQueue<>();
+
+        if (root != null) {
+            queue.enqueue(root);
+        }
+
+        while (queue.size() != 0) {
+            Node current = queue.dequeue();
+            
+            if (current.left != null) {
+                queue.enqueue(current.left);
+            }
+            
+            System.out.print(current.value + " ");
+
+            if (current.right != null) {
+                queue.enqueue(current.right);
+            }
+        }
+    }
+
+    public void treeTraversal(String type) {
+        if (type.equals("postOrder")) {
+            postOrder();
+        } else if (type.equals("inOrder")) {
+            inOrder();
+        } else {
+            treeTraversal();
+        }
+    }
+
+    @Override
+    public void treeTraversal() {
+        preOrder();
     }
 
     @Override
     public String toString() {
-        return "BinarySeachTree []";
+        return "BinarySearchTree []";
     }
+
 }
