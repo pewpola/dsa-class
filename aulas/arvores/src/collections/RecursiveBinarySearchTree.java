@@ -1,5 +1,7 @@
 package collections;
 
+import javax.management.RuntimeErrorException;
+
 public class RecursiveBinarySearchTree<E> extends AbstractTree<E> {
 
     private Node contains(E value, Node current) {
@@ -20,13 +22,33 @@ public class RecursiveBinarySearchTree<E> extends AbstractTree<E> {
         return contains(value, root) != null;
     }
 
+    private void mirror(Node current) {
+        if (current == null) {
+            return;
+        }
+
+        Node temp = current.left;
+        current.left = current.right;
+        current.right = temp;
+        
+        mirror(current.left);
+        mirror(current.right);
+    }
+
+    public void mirror() {
+        if (isEmpty()) {
+            throw new RuntimeErrorException(null, "Tree is empty");
+        }
+        mirror(root);
+        treeTraversal();
+    }
+
     private Node minNode(Node current) {
         if (current.left == null) {
             return current;
         }
         return minNode(current.left);
     }
-
 
     private Node delete(E value, Node current) {
         if (current == null) {
@@ -51,6 +73,29 @@ public class RecursiveBinarySearchTree<E> extends AbstractTree<E> {
             }
         }
         return current;
+    }
+
+    private Node get(E value, Node current) {
+        if (current == null) {
+            return null;
+        }
+
+        if (compare(value, current) < 0) {
+            current = contains(value, current.left);
+        } else if (compare(value, current) > 0) {
+            current = contains(value, current.right);
+        }
+        return current;
+    }
+
+    public E get(E value) {
+        Node auxNode = get(value, root);
+
+        if (auxNode != null) {
+            return auxNode.value;
+        } else {
+            return null;
+        }
     }
 
     @Override
