@@ -20,12 +20,12 @@ public class AVLTree<E> extends AbstractTree<E> {
         }
         return current.height;
     }
-
+    
     private Node contains(E value, Node current) {
         if (current == null) {
             return null;
         }
-
+        
         int cmp = compare(value, current);
         if (cmp < 0) {
             return contains(value, current.left);
@@ -35,20 +35,62 @@ public class AVLTree<E> extends AbstractTree<E> {
             return current;
         }
     }
+    
 
     @Override
     public boolean contains(E value) {
         return contains(value, root) != null;
     }
-
+    
     public int height() {
         return height(root);
     }
-
+    
+    private Node delete(E value, Node current) {
+        if (current == null) {
+            return null;
+        }
+        
+        if (compare(value, current) < 0) {
+            current.left = delete(value, current.left);
+        } else if (compare(value, current) > 0) {
+            current.right = delete(value, current.right);
+        } else {
+            if (current.left == null && current.right == null) {
+                size--;
+                current = null;
+                return current;
+            } else if (current.left != null && current.right != null) {
+                current.value = maxNode(current.left).value;
+                current.left = delete(current.value, current.left);
+            } else {
+                size--;
+                current = current.left != null ? current.left : current.right;
+            }
+        }
+        if (current != null) {
+            updateHeight(current);
+            current = balance(current);
+        }
+        return current;
+    }
+    
     @Override
     public E delete(E value) {
-        // TODO Auto-generated method stub
+        int previousSize = size;
+        root = delete(value, root);
+        if (previousSize != size) {
+            return value;
+        }
         return null;
+    }
+
+    private Node maxNode(Node current) {
+        if (current.right == null) {
+            return current;
+        }
+
+        return maxNode(current.right);
     }
 
     @Override
