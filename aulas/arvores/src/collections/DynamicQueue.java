@@ -45,6 +45,24 @@ public class DynamicQueue<E> implements Queue<E> {
         return value;
     }
 
+    public E removeFirst() throws RuntimeException {
+        if (isEmpty()) {
+            throw new RuntimeException("Linked List is Empty");
+        }
+
+        Node auxNode = head;
+        if (size == 1) {
+            head = null;
+            tail = null;
+        } else {
+            head = head.next;
+            auxNode.next = null;
+        }
+        size--;
+
+        return auxNode.value;
+    }
+
     @Override
     public void enqueue(E value) {
         Node newNode = new Node(value);
