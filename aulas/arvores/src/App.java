@@ -1,15 +1,16 @@
 // import collections.AVLTree;
-import collections.RecursiveBinarySearchTree;
+import collections.BinarySearchTree;
 
 public class App {
     public static void main(String[] args) throws Exception {
         // AVLTree<Integer> avl = new AVLTree<>();
-        RecursiveBinarySearchTree<Integer> bst = new RecursiveBinarySearchTree<>();
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
         
         // bst.insert(47);
         // bst.insert(30);
         // bst.insert(89);
         // bst.insert(8);
+        // bst.insert(30);
         // bst.insert(38);
         // bst.insert(5);
         // bst.insert(61);
@@ -18,9 +19,17 @@ public class App {
         bst.insert(2);
         bst.insert(4);
         bst.insert(1);
+        // System.out.println(bst.get(5));
+        // System.out.println(bst.get(3));
+        System.out.println(bst.size());
+        bst.treeTraversal("inOrder");
+        System.out.println();
         bst.treeTraversal();
-        // bst.treeTraversal("inOrder");
-        // bst.treeTraversal("postOrder");
+        System.out.println();
+        bst.treeTraversal("postOrder");
+        // bst.clear();
+        // bst.treeTraversal();
+        // System.out.println(bst.size());
         // bst.treeTraversal();
         // System.out.println(avl);
         // System.out.println(avl.height());
