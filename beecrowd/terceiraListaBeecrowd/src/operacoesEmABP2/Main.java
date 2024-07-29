@@ -1,4 +1,4 @@
-package operacoesEmABP1;
+package operacoesEmABP2;
 
 import java.util.Comparator;
 import java.util.Scanner;
@@ -125,8 +125,46 @@ class RecursiveBinarySearchTree<E> extends AbstractTree<E> {
         return sb.toString().trim();
     }
 
+    private Node minNode(Node current) {
+        if (current.left == null) {
+            return current;
+        }
+        return minNode(current.left);
+    }
+
+
+    private Node delete(E value, Node current) {
+        if (current == null) {
+            return null;
+        }
+
+        if (compare(value, current) < 0) {
+            current.left = delete(value, current.left);
+        } else if (compare(value, current) > 0) {
+            current.right = delete(value, current.right);
+        } else {
+            if (current.left == null && current.right == null) {
+                size--;
+                current = null;
+            } else if (current.left != null && current.right != null) {
+                current.value = minNode(current.right).value;
+                current.right = delete(current.value, current.right);
+
+            } else {
+                size--;
+                current = current.left != null ? current.left : current.right;
+            }
+        }
+        return current;
+    }
+
     @Override
     public E delete(E value) {
+        int previousSize = size;
+        root = delete(value, root);
+        if (previousSize != size) {
+            return value;
+        }
         return null;
     }
 
@@ -156,12 +194,12 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        RecursiveBinarySearchTree<String> bst = new RecursiveBinarySearchTree<>();
+        RecursiveBinarySearchTree<Integer> bst = new RecursiveBinarySearchTree<>();
 
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             if (line.startsWith("I ")) {
-                String element = line.substring(2);
+                int element = Integer.parseInt(line.substring(2));
                 bst.insert(element);
             } else if (line.equals("INFIXA")) {
                 System.out.println(bst.getTraversal("inOrder"));
@@ -170,12 +208,15 @@ public class Main {
             } else if (line.equals("POSFIXA")) {
                 System.out.println(bst.getTraversal("postOrder"));
             } else if (line.startsWith("P ")) {
-                String element = line.substring(2);
+                int element = Integer.parseInt(line.substring(2));
                 if (bst.contains(element)) {
                     System.out.println(element + " existe");
                 } else {
                     System.out.println(element + " nao existe");
                 }
+            } else if (line.startsWith("R ")) {
+                int element = Integer.parseInt(line.substring(2));
+                bst.delete(element);
             }
         }
         sc.close();
