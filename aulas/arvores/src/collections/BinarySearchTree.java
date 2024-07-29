@@ -9,7 +9,17 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
 
     @Override
     public boolean contains(E value) {
-        // TODO Auto-generated method stub
+        Node current = root;
+
+        while (current != null) {
+            if (compare(value, current) > 0) {
+                current = current.right;
+            } else if (compare(value, current) < 0) {
+                current = current.left;
+            } else {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -87,7 +97,17 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
     }
 
     public E get(E value) {
-        // TODO Auto-generated method stub
+        Node current = root;
+
+        while (current != null) {
+            if (compare(value, current) > 0) {
+                current = current.right;
+            } else if (compare(value, current) < 0) {
+                current = current.left;
+            } else {
+                return current.value;
+            }
+        }
         return null;
     }
 
@@ -119,75 +139,76 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
         size++;
     }
 
-    private void preOrder() {
-        Queue<Node> queue = new DynamicQueue<>();
-        if (root != null) {
-            queue.enqueue(root);
+    private void preOrder(Node current) {
+        Stack<Node> pilha = new DynamicStack<>();
+
+        if (current != null) {
+            pilha.push(current);
         }
 
-        while (queue.size() != 0) {
-            Node current = queue.dequeue();
+        while (!pilha.isEmpty()) {
+            Node auxNode = pilha.pop();
 
-            System.out.print(current.value + " ");
+            System.out.print(auxNode.value + " ");
 
-            if (current.left != null) {
-                queue.enqueue(current.left);
+            if (auxNode.right != null) {
+                pilha.push(auxNode.right);
             }
 
-            if (current.right != null) {
-                queue.enqueue(current.right);
+            if (auxNode.left != null) {
+                pilha.push(auxNode.left);
             }
-        }
-    }
-
-    private void postOrder() {
-        Queue<Node> queue = new DynamicQueue<>();
-        if (root != null) {
-            queue.enqueue(root);
-        }
-
-        while (queue.size() != 0) {
-            Node current = queue.dequeue();
-
-            if (current.left != null) {
-                queue.enqueue(current.left);
-            }
-
-            if (current.right != null) {
-                queue.enqueue(current.right);
-            }
-
-            System.out.print(current.value + " ");
         }
     }
 
-    private void inOrder() {
-        Queue<Node> queue = new DynamicQueue<>();
+    private void inOrder(Node current) {
+        Stack<Node> pilha = new DynamicStack<>();
 
-        if (root != null) {
-            queue.enqueue(root);
+        while (!pilha.isEmpty() || current != null) {
+            while (current != null) {
+                pilha.push(current);
+                current = current.left;
+            }
+
+            current = pilha.pop();
+            System.out.print(current.value + " ");
+            current = current.right;
+        }
+    }
+
+    private void postOrder(Node current) {
+        Stack<Node> stack1 = new DynamicStack<>();
+        Stack<Node> stack2 = new DynamicStack<>();
+
+        if (current != null) {
+            stack1.push(current);
         }
 
-        while (queue.size() != 0) {
-            Node current = queue.dequeue();
-            
-            if (current.left != null) {
-                queue.enqueue(current.left);
-            }
-            
-            System.out.print(current.value + " ");
+        // stack1.push(current);
 
-            if (current.right != null) {
-                queue.enqueue(current.right);
+        while (!stack1.isEmpty()) {
+            Node auxNode = stack1.pop();
+            stack2.push(auxNode);
+
+            if (auxNode.left != null) {
+                stack1.push(auxNode.left);
             }
+
+            if (auxNode.right != null) {
+                stack1.push(auxNode.right);
+            }
+        }
+
+        while (!stack2.isEmpty()) {
+            System.out.print(stack2.pop().value + " ");
         }
     }
 
     public void treeTraversal(String type) {
         if (type.equals("postOrder")) {
-            postOrder();
+            postOrder(root);
         } else if (type.equals("inOrder")) {
-            inOrder();
+            inOrder(root);
         } else {
             treeTraversal();
         }
@@ -195,12 +216,11 @@ public class BinarySearchTree<E> extends AbstractTree<E> {
 
     @Override
     public void treeTraversal() {
-        preOrder();
+        preOrder(root);
     }
 
     @Override
     public String toString() {
         return "BinarySearchTree []";
     }
-
 }
